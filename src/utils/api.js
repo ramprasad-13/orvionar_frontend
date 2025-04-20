@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3000/api';  // Ensure this URL points to your backend
-const noAuthUrl = 'http://localhost:3000'; // URL for no auth routes
+const baseURL = 'https://orvionar-backend.vercel.app/api';  // Ensure this URL points to your backend
+const noAuthUrl = 'https://orvionar-backend.vercel.app'; // URL for no auth routes
 
 // Authentication Routes
 export const login = async (email, password) => {
