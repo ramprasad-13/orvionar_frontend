@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-text-1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.main-text-2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f68121;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.main-text-2 strong {
+  color: #000;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 60px 40px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Background Image */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../assets/young-man.jpg') no-repeat center center/cover;
+  animation: zoomInOut 10s ease-in-out infinite;
+  z-index: -2; /* Below balls and text */
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Ball effects */
+.hero-section::after,
+.hero-section .ball-1::before,
+.hero-section .ball-1::after,
+.hero-section .ball-2::before,
+.hero-section .ball-2::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1; /* Above background image, below text */
+  opacity: 0.7;
+}
+
+
+/* Ball 2: White */
+.hero-section .ball-1::before {
+  width: 300px;
+  height: 300px;
+  background-color: #808080;
+  bottom: 8%;
+  right: -13%;
+}
+
+/* Ball 4: White */
+.hero-section .ball-2::before {
+  width: 500px;
+  height: 500px;
+  background-color: #808080;
+  bottom: -20%;
+  left: -20%;
+}
+
+.hero-text {
+  max-width: 70%;
+  color: #000000;
+  position: relative;
+  z-index: 1; /* Above background image and balls */
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #222222;
+}
+
+.explore-btn {
+  background: #111111;
+  color: #ffffff;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.explore-btn:hover {
+  color: #a6a1a1;
+}
+
+.student-img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.motivational-quote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 30px auto;
+  padding: 15px;
+  background: #f68121;
+  border-radius: 10px;
+  max-width: 600px;
+}
+
+.quote p {
+  font-size: 1.1rem;
+  color: #fff;
+  font-style: italic;
+  margin: 0;
+}
+
+.quote small {
+  font-size: 0.9rem;
+  color: #fed7aa;
+}
+
+.rocket-gif img {
+  max-height: 80px;
+  rotate: 45deg;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hero-section {
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px 15px;
+  }
+  .hero-section::before {
+    background-position: 90% 0%;
+  }
+  .hero-text, .hero-image {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .main-text-1 {
+    font-size: 2rem;
+    color: white;
+  }
+
+  .main-text-2 {
+    font-size: 1.8rem;
+  }
+  .hero-description {
+    font-size: 1rem;
+    color: aliceblue;
+  }
+  .explore-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  .motivational-quote {
+    flex-direction: column;
+    max-width: 90%;
+  }
+
+  /* Adjust ball sizes for smaller screens */
+  .hero-section::after {
+    width: 60px;
+    height: 60px;
+  }
+  .hero-section .ball-1::before {
+    width: 90px;
+    height: 90px;
+  }
+  .hero-section .ball-1::after {
+    width: 40px;
+    height: 40px;
+  }
+  .hero-section .ball-2::before {
+    width: 80px;
+    height: 80px;
+  }
+  .hero-section .ball-2::after {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Darken hero-section background image on mobile with a separate overlay */
+  .hero-section .overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: -1; /* Above background image, below text and balls */
+  }
+
+  .hero-text {
+    z-index: 1; /* Ensure text stays above overlay */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-text-1 {
+    font-size: 2rem;
+  }
+
+  .main-text-2 {
+    font-size: 1.5rem;
+  }
+  .hero-description {
+    font-size: 1rem;
+  }
+  .explore-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  .motivational-quote {
+    flex-direction: column;
+  }
+
+  /* Further reduce ball sizes for very small screens */
+  .hero-section::after {
+    width: 50px;
+    height: 50px;
+  }
+  .hero-section .ball-1::before {
+    width: 70px;
+    height: 70px;
+  }
+  .hero-section .ball-1::after {
+    width: 30px;
+    height: 30px;
+  }
+  .hero-section .ball-2::before {
+    width: 60px;
+    height: 60px;
+  }
+  .hero-section .ball-2::after {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,563 @@
+.adminVideosSection {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.courseDetails {
+  display: flex;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  width: 100%;
+  margin-bottom: 40px;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.courseThumbnail img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-right: 2px solid #4e2a84;
+}
+
+.courseInfo {
+  padding: 20px;
+  flex: 1;
+}
+
+.courseTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #263238;
+  margin-bottom: 10px;
+}
+
+.courseDesc {
+  font-size: 1rem;
+  color: #78909c;
+  margin-bottom: 15px;
+}
+
+.courseInstructor {
+  font-size: 0.95rem;
+  color: #546e7a;
+}
+
+.curriculum {
+  max-width: 1000px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #37474f;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.curriculumCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.curriculumList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.curriculumItem {
+  margin-bottom: 15px;
+}
+
+.curriculumHeading {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #37474f;
+  margin-bottom: 10px;
+}
+
+.subTopicList {
+  list-style: none;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.subTopicItem {
+  font-size: 1rem;
+  color: #546e7a;
+  padding: 5px 0;
+  position: relative;
+}
+
+.subTopicItem:before {
+  content: '•';
+  position: absolute;
+  left: -15px;
+  color: #4e2a84;
+  font-size: 1.2rem;
+}
+
+.noSubTopics,
+.noCurriculum {
+  font-size: 1rem;
+  color: #78909c;
+  font-style: italic;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.videoUploadForm {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 40px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.formTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #37474f;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.videoUploadForm input,
+.videoUploadForm textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2c3e50;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.videoUploadForm input:focus,
+.videoUploadForm textarea:focus {
+  outline: none;
+  border-color: #4e2a84;
+  box-shadow: 0 0 5px rgba(78, 42, 132, 0.2);
+}
+
+.videoUploadForm textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.videoUploadForm input::placeholder,
+.videoUploadForm textarea::placeholder {
+  color: #95a5a6;
+}
+
+.uploadBtn {
+  width: 100%;
+  background: linear-gradient(90deg, #4e2a84 0%, #6e45a3 100%);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.uploadBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(78, 42, 132, 0.3);
+}
+
+.uploadBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.searchBar {
+  width: 100%;
+  padding: 12px 15px 12px 35px;
+  margin-top: 20px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2c3e50;
+  background: #f9f9f9
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>')
+    no-repeat 10px center;
+  transition: border-color 0.3s ease;
+}
+
+.searchBar:focus {
+  outline: none;
+  border-color: #4e2a84;
+}
+
+.videosList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.videoCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.videoCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.videoPreview {
+  position: relative;
+}
+
+.videoPreview img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 2px solid #4e2a84;
+}
+
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(78, 42, 132, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.videoCard:hover .playButton {
+  background: rgba(78, 42, 132, 1);
+}
+
+.playButton span {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.videoInfo {
+  padding: 20px;
+}
+
+.videoTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #37474f;
+  margin-bottom: 10px;
+}
+
+.videoDesc {
+  font-size: 0.95rem;
+  color: #78909c;
+  margin-bottom: 10px;
+}
+
+.videoTags {
+  font-size: 0.9rem;
+  color: #546e7a;
+  margin-bottom: 15px;
+}
+
+.videoActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.videoActions button {
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.editBtn {
+  background: #0288d1;
+  color: white;
+}
+
+.deleteBtn {
+  background: #d32f2f;
+  color: white;
+}
+
+.videoActions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.noVideos {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #78909c;
+  margin: 20px 0;
+}
+
+.videoModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: zoomIn 0.3s ease-in-out;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 26px;
+  height: 26px;
+  background: #d32f2f;
+  color: white;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.closeBtn:hover {
+  background: #b71c1c;
+  transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+  .courseDetails {
+    flex-direction: column;
+    max-width: 600px;
+  }
+
+  .courseThumbnail img {
+    width: 100%;
+    height: 250px;
+    border-right: none;
+    border-bottom: 2px solid #4e2a84;
+  }
+
+  .videosList {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .adminVideosSection {
+    padding: 30px 15px;
+  }
+
+  .courseTitle {
+    font-size: 1.8rem;
+  }
+
+  .videoUploadForm {
+    padding: 25px;
+    max-width: 100%;
+  }
+
+  .formTitle,
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .videoUploadForm input,
+  .videoUploadForm textarea {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  .uploadBtn {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .searchBar {
+    padding: 10px 12px 10px 35px;
+    font-size: 0.95rem;
+  }
+
+  .videoTitle {
+    font-size: 1.3rem;
+  }
+
+  .curriculumHeading {
+    font-size: 1.1rem;
+  }
+
+  .subTopicItem {
+    font-size: 0.95rem;
+  }
+
+  .closeBtn {
+    top: 1px;
+    right: 1px;
+    width: 25px;
+    height: 25px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .adminVideosSection {
+    padding: 20px 10px;
+  }
+
+  .courseTitle {
+    font-size: 1.6rem;
+  }
+
+  .courseDesc,
+  .courseInstructor {
+    font-size: 0.9rem;
+  }
+
+  .formTitle,
+  .sectionTitle {
+    font-size: 1.4rem;
+  }
+
+  .videoUploadForm {
+    padding: 20px;
+  }
+
+  .videoUploadForm input,
+  .videoUploadForm textarea {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .uploadBtn {
+    padding: 8px;
+    font-size: 0.95rem;
+  }
+
+  .searchBar {
+    padding: 8px 10px 8px 35px;
+    font-size: 0.9rem;
+  }
+
+  .videosList {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .videoTitle {
+    font-size: 1.2rem;
+  }
+
+  .videoDesc,
+  .videoTags {
+    font-size: 0.85rem;
+  }
+
+  .videoActions button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .curriculumHeading {
+    font-size: 1rem;
+  }
+
+  .subTopicItem {
+    font-size: 0.9rem;
+  }
+
+  .modalContent {
+    padding: 15px;
+    max-width: 95%;
+    max-height: 85vh;
+  }
+
+  .closeBtn {
+    top: 1px;
+    right: 1px;
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
+  }
+}

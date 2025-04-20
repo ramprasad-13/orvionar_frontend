@@ -1,0 +1,258 @@
+.videoPlayer {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.videoPlayer.fullscreen {
+  max-width: 100%;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  background: #000; /* Fallback background */
+}
+
+.videoElement {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+  cursor: pointer;
+}
+
+.videoPlayer.fullscreen .videoElement {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover; /* Fills the screen, cropping if necessary */
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: rgba(30, 30, 30, 0.95);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #444;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.videoPlayer:hover .controls {
+  opacity: 1;
+}
+
+.controlBtn {
+  background: linear-gradient(135deg, #ffab02 0%, #cc8802 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 15px;
+}
+
+.controlBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(255, 171, 2, 0.5);
+}
+
+.seekBarContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.time {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  margin: 0 10px;
+  white-space: nowrap;
+}
+
+.seekBar {
+  flex: 1;
+  height: 6px;
+  background: #555;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(135deg, #ffab02 0%, #cc8802 100%);
+  border-radius: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 0.1s linear;
+}
+
+.seekBar:hover .progress {
+  height: 8px;
+  top: -1px;
+}
+
+.volumeContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.icon {
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.volumeSlider {
+  width: 80px;
+  height: 6px;
+  background: #555;
+  border-radius: 3px;
+  cursor: pointer;
+  accent-color: #ffab02;
+  transition: all 0.3s ease;
+}
+
+.volumeSlider:hover {
+  height: 8px;
+}
+
+.speedControl {
+  background: #333;
+  color: #e0e0e0;
+  border: 1px solid #ffab02;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+}
+
+.speedControl:hover {
+  background: #ffab02;
+  color: #1e1e1e;
+}
+
+.speedControl:focus {
+  outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .videoPlayer {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .controls {
+    padding: 10px;
+  }
+
+  .controlBtn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+
+  .seekBar {
+    height: 5px;
+  }
+
+  .progress {
+    height: 5px;
+  }
+
+  .seekBar:hover .progress {
+    height: 7px;
+    top: -1px;
+  }
+
+  .time {
+    font-size: 0.9rem;
+    margin: 0 8px;
+  }
+
+  .volumeSlider {
+    width: 60px;
+    margin-right: 10px;
+  }
+
+  .speedControl {
+    padding: 4px;
+    font-size: 0.85rem;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .controls {
+    flex-wrap: wrap;
+    padding: 8px;
+  }
+
+  .controlBtn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    margin-right: 8px;
+  }
+
+  .seekBarContainer {
+    order: 1;
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  .seekBar {
+    height: 4px;
+  }
+
+  .progress {
+    height: 4px;
+  }
+
+  .seekBar:hover .progress {
+    height: 6px;
+    top: -1px;
+  }
+
+  .time {
+    font-size: 0.85rem;
+    margin: 0 6px;
+  }
+
+  .volumeContainer {
+    order: 2;
+    margin-right: 8px;
+  }
+
+  .volumeSlider {
+    width: 50px;
+  }
+
+  .speedControl {
+    order: 3;
+    margin-right: 8px;
+    padding: 3px;
+    font-size: 0.8rem;
+  }
+}

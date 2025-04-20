@@ -1,0 +1,171 @@
+/* Why Choose Us */
+.why-choose-us {
+  padding: 60px 20px;
+  background: #fff7ed;
+}
+
+.why-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards in first row */
+  grid-gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.why-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  perspective: 1000px; /* For 3D flip effect */
+  height: 300px; /* Fixed height for consistency */
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.why-item:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.card-front {
+  background: #fff;
+}
+
+.card-back {
+  background: #666; /* Grey background */
+  color: #fff; /* White text */
+  transform: rotateY(180deg);
+}
+
+.card-image {
+  width: 260px;
+  height: 150px;
+  max-width: 280px;
+  max-height: 150px;
+  object-fit: fill;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.why-item h3 {
+  font-size: 1.2rem;
+  color: #f68121;
+  margin: 0;
+  text-align: center;
+}
+
+.why-item p {
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.main-text-2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f68121;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 1200px) {
+  .why-list {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  }
+
+  .main-text-2 {
+    font-size: 2.2rem;
+  }
+
+  .why-item {
+    height: 300px;
+  }
+
+  .card-image {
+    width: 240px;
+    height: 150px;
+  }
+}
+@media (max-width: 992px) {
+  .why-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  }
+
+  .main-text-2 {
+    font-size: 2rem;
+  }
+
+  .why-item {
+    height: 280px;
+  }
+
+  .card-image {
+    width: 220px;
+    height: 150px;
+  }
+}
+
+/* Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+  .why-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  }
+
+  .main-text-2 {
+    font-size: 1.8rem;
+  }
+
+  .why-item {
+    height: 280px;
+  }
+
+  .card-image {
+    width: 200px;
+    height: 160px;
+  }
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .why-list {
+    grid-template-columns: repeat(1, 1fr); /* 1 card per row */
+  }
+
+  .main-text-2 {
+    font-size: 1.5rem;
+  }
+
+  .why-item {
+    height: 260px;
+  }
+
+  .why-item p {
+    font-size: 0.9rem;
+  }
+
+
+  .card-image {
+    width: 280px;
+    height: 160px;
+  }
+
+}

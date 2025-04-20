@@ -1,0 +1,131 @@
+/* Successful Transitions */
+
+.main-text-2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f68121;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.main-text-2 strong {
+  color: #000;
+}
+
+.successful-transitions {
+  padding: 60px 20px;
+  background: #fff7ed;
+}
+
+.slider-container {
+  position: relative;
+  width: 96%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.transition-slider {
+  width: 100%;
+}
+
+.transition-slide {
+  padding: 0 10px;
+}
+
+.transition-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+}
+
+.transition-card blockquote {
+  font-size: 1.1rem;
+  color: #555;
+  font-style: italic;
+  margin: 0 0 15px;
+}
+
+.quote-marks {
+  font-size: 1.5rem;
+  color: #f68121;
+  font-weight: bold;
+}
+
+.card-info {
+  background: #f68121;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.role {
+  font-size: 0.9rem;
+}
+
+/* Custom Arrow Styles */
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background: #f68121; /* Orange background */
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.custom-arrow:hover {
+  background: #cc8802; /* Darker orange on hover */
+}
+
+.custom-prev {
+  left: -30px;
+}
+
+.custom-next {
+  right: -30px;
+}
+
+.custom-arrow svg {
+  fill: #000000; /* Black icon */
+}
+
+@media (max-width: 768px) {
+  .main-text-2 {
+    font-size: 1.8rem;
+  }
+
+  .custom-prev {
+    left: -25px;
+  }
+
+  .custom-next {
+    right: -25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-text-2 {
+    font-size: 1.5rem;
+  }
+}

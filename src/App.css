@@ -1,0 +1,27 @@
+.main-text-1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+
+.main-text-2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f97316;
+    text-align: center;
+    margin-bottom: 30px;
+}
+  
+.main-text-2 strong {
+    color: #000;
+}
+
+
+@media (max-width: 768px) {
+
+    .main-text-1 {
+        font-size: 2rem;
+      }
+}

@@ -1,0 +1,123 @@
+.playPage {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f2f5 0%, #ffffff 100%);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loading {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .errorMessage {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .videoContainer {
+    max-width: 900px;
+    width: 100%;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .backButton {
+    background: #ffab02;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 1.5rem;
+    align-self: flex-start;
+  }
+  
+  .backButton:hover {
+    background: #cc8802;
+  }
+  
+  .videoTitle {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin: 0 0 1.5rem;
+    text-align: center;
+  }
+  
+  .playerWrapper {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+  }
+  
+  .videoDescription {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 1.5rem 0 0;
+    text-align: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .playPage {
+      padding: 1rem;
+    }
+  
+    .videoContainer {
+      padding: 1.5rem;
+    }
+  
+    .videoTitle {
+      font-size: 1.8rem;
+    }
+  
+    .videoDescription {
+      font-size: 1rem;
+    }
+  
+    .backButton {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  
+    .playerWrapper {
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .videoContainer {
+      padding: 1rem;
+    }
+  
+    .videoTitle {
+      font-size: 1.5rem;
+    }
+  
+    .videoDescription {
+      font-size: 0.9rem;
+    }
+  
+    .backButton {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+  }

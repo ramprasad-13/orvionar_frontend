@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+.aboutPage {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+.mainText1,
+.sectionTitle {
+  text-align: center;
+  color: #f68121;
+  font-weight: 700;
+}
+
+.mainText1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.heroDescription {
+  color: #000000;
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 20px auto 0;
+}
+
+.highlighted {
+  color: #f68121;
+  font-weight: 600;
+}
+
+/* Hero Section */
+.heroSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 30px;
+  background: #fff7ed;
+  text-align: center;
+}
+
+.heroText {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Vision and Mission */
+.visionMission {
+  padding: 40px 20px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.vision,
+.mission {
+  margin-bottom: 40px;
+}
+
+.vision p,
+.mission p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 10px auto;
+  max-width: 800px;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mainText1 {
+    font-size: 2.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .heroDescription {
+    font-size: 1.1rem;
+  }
+
+  .heroText {
+    max-width: 100%;
+  }
+
+  .vision p,
+  .mission p {
+    font-size: 1rem;
+  }
+
+  .heroSection,
+  .visionMission{
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .mainText1 {
+    font-size: 2rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.4rem;
+  }
+
+  .heroDescription {
+    font-size: 1rem;
+  }
+
+  .vision p,
+  .mission p {
+    font-size: 0.9rem;
+  }
+  .heroSection,
+  .visionMission{
+    padding: 30px 15px;
+  }
+}

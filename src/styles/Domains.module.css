@@ -1,0 +1,194 @@
+/* Domains.css */
+.domains-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .main-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+  }
+  
+  /* Domain Navigation */
+  .domain-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .domain-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  
+  .domain-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .domain-btn.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* Courses Section */
+  .courses-section {
+    padding: 2rem 0;
+  }
+  
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .course-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .course-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .course-thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .course-content {
+    padding: 1.5rem;
+  }
+  
+  .course-title {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+  }
+  
+  .course-instructor {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+  }
+  
+  .course-description {
+    color: #777;
+    font-size: 1rem;
+    margin: 0 0 1rem;
+    line-height: 1.5;
+  }
+  
+  .course-price {
+    margin: 1rem 0;
+  }
+  
+  .discounted-price {
+    color: #28a745;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+  
+  .original-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 1rem;
+  }
+  
+  .course-tags {
+    color: #555;
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+    font-style: italic;
+  }
+  
+  .program-content {
+    margin: 1rem 0;
+  }
+  
+  .program-content h4 {
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .program-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    color: #666;
+  }
+  
+  .enroll-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  
+  .enroll-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .loading-text, .no-courses {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    padding: 2rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 2rem;
+    }
+    
+    .course-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .course-card {
+      margin: 0.5rem;
+    }
+    
+    .domain-nav {
+      gap: 0.5rem;
+    }
+    
+    .domain-btn {
+      padding: 0.5rem 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .domains-container {
+      padding: 1rem;
+    }
+    
+    .course-thumbnail {
+      height: 150px;
+    }
+    
+    .course-title {
+      font-size: 1.2rem;
+    }
+  }
