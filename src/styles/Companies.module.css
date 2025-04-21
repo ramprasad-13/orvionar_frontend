@@ -1,74 +1,74 @@
 .main-text-1 {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-  
-  
-  .main-text-2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #f68121;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .main-text-2 strong {
-    color: #000;
-  }
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+
+.main-text-2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f68121;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.main-text-2 strong {
+  color: #000;
+}
 
 
 /* Partner Companies */
 .partner-companies {
-    padding: 60px 0px;
-    background-color: white;
-  }
-  
-  .partner-slider {
-    width: 100%;
-    padding: 20px 0px;
-    margin: 0 auto;
-    background: #fff7ed;
-  }
-  
-  .partner-slide {
-    padding: 0 15px;
-  }
-  
-  .company-logo {
-    width: 150px;
-    height: 90px;
-    object-fit: fill;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
+  padding: 60px 0px;
+  background-color: white;
+}
 
-  @media (max-width: 768px) {
-    .main-text-1 {
-        font-size: 2rem;
-      }
-  
-      .main-text-2 {
-        font-size: 1.8rem;
-      }
-  
-      .company-logo {
-        width: 150px;
-        height: 90px;
-      }
-  }
+.partner-slider {
+  width: 100%;
+  padding: 20px 0px;
+  margin: 0 auto;
+  background: #fff7ed;
+}
+
+.partner-slide {
+  padding: 0 15px;
+}
+
+.company-logo {
+  width: 150px;
+  height: 90px;
+  object-fit: fill;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+@media (max-width: 768px) {
+  .main-text-1 {
+      font-size: 2rem;
+    }
+
+    .main-text-2 {
+      font-size: 1.8rem;
+    }
+
+    .company-logo {
+      width: 150px;
+      height: 90px;
+    }
+}
 
 @media (max-width: 480px) {
-  
-      .main-text-2 {
-        font-size: 1.5rem;
-      }
-  
-      .company-logo {
-        width: 150px;
-        height: 70px;
-      }
-  }
+
+    .main-text-2 {
+      font-size: 1.5rem;
+    }
+
+    .company-logo {
+      width: 150px;
+      height: 70px;
+    }
+}

@@ -88,7 +88,7 @@ const Navbar = () => {
           <TypingAnimation />
         </div>
 
-        <button className={styles.mobileToggle} onClick={toggleMobileMenu}>
+        <button name='hambuger-menu' className={styles.mobileToggle} onClick={toggleMobileMenu}>
           <span className={`${styles.hamburger} ${isMobileMenuOpen ? styles.open : ''}`}>
             {isMobileMenuOpen ? (
               <span className={styles.closeIcon}>✕</span>

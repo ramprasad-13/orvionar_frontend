@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Domains.module.css';
-import { getCoursesByDomainWithoutAuth } from '../utils/api';
+import { getAllCoursesWithoutAuth } from '../utils/api';
 
 const Domains = () => {
   const [domains, setDomains] = useState({
@@ -27,17 +27,23 @@ const Domains = () => {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const allCourses = await Promise.all(
-          ['cse', 'ece', 'mech', 'civil', 'management', 'pharmacy', 'agriculture', 'others'].map(async (domain) => {
-            const courses = await getCoursesByDomainWithoutAuth(domain);
-            return { domain, courses };
-          })
-        );
+        // Fetch all courses at once
+        const allCourses = await getAllCoursesWithoutAuth();
 
-        const coursesByDomain = allCourses.reduce((acc, { domain, courses }) => {
-          acc[domain] = courses;
-          return acc;
-        }, { cse: [], ece: [], mech: [], civil: [], management: [], pharmacy: [], agriculture: [], others: [] });
+        // Categorize courses by domain
+        const coursesByDomain = {
+          cse: [], ece: [], mech: [], civil: [],
+          management: [], pharmacy: [], agriculture: [], others: []
+        };
+
+        allCourses.forEach(course => {
+          const domain = course.domain.toLowerCase();
+          if (coursesByDomain[domain]) {
+            coursesByDomain[domain].push(course);
+          } else {
+            coursesByDomain.others.push(course); // Fallback for unrecognized domains
+          }
+        });
 
         setDomains(coursesByDomain);
       } catch (error) {
@@ -51,7 +57,7 @@ const Domains = () => {
   }, []);
 
   const handleKnowMore = (courseId) => {
-    navigate(`/course/${courseId}`, { replace: false }); // Ensure client-side navigation
+    navigate(`/course/${courseId}`, { replace: false });
   };
 
   return (
@@ -65,7 +71,7 @@ const Domains = () => {
             key={domain}
             className={`${styles['domain-btn']} ${selectedDomain === domain ? styles['active'] : ''}`}
             onClick={() => setSelectedDomain(domain)}
-            type="button" // Explicitly set type to prevent form submission
+            type="button"
           >
             {domainDisplayNames[domain]}
           </button>
@@ -91,7 +97,7 @@ const Domains = () => {
                   <p className={styles['course-description']}>{course.description}</p>
                   <p className={styles['course-tags']}>{course.tags.join(", ")}</p>
                   <button
-                    type="button" // Prevent form submission
+                    type="button"
                     className={styles['enroll-btn']}
                     onClick={() => handleKnowMore(course._id)}
                   >
