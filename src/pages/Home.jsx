@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async'; // Updated import
 import rocketGif from '../assets/gif/rocket.gif';
 import styles from '../styles/Home.module.css';
 import AOS from 'aos';
@@ -14,19 +14,28 @@ import Contact from '../pages/Contact';
 import SucessfulTransitions from '../components/SucessfulTransitions';
 
 const Home = () => {
-
   useEffect(() => {
     AOS.init({ duration: 1000 });
+    return () => AOS.refresh(); // Cleanup for AOS
   }, []);
 
   return (
     <>
       <Helmet>
         <title>Orvionar Tech - Advance Your Skills to the Elite 1%</title>
-        <meta name="description" content="Orvionar Tech offers expert-guided programs to help you advance your skills and succeed in today's dynamic job market." />
-        <meta name="keywords" content="online courses, skill development, career growth, expert training, Orvionar Tech" />
+        <meta
+          name="description"
+          content="Orvionar Tech offers expert-guided programs to help you advance your skills and succeed in today's dynamic job market."
+        />
+        <meta
+          name="keywords"
+          content="online courses, skill development, career growth, expert training, Orvionar Tech"
+        />
         <meta property="og:title" content="Orvionar Tech - Advance Your Skills to the Elite 1%" />
-        <meta property="og:description" content="Orvionar Tech offers expert-guided programs to help you advance your skills and succeed in today's dynamic job market." />
+        <meta
+          property="og:description"
+          content="Orvionar Tech offers expert-guided programs to help you advance your skills and succeed in today's dynamic job market."
+        />
         <meta property="og:url" content="https://www.orvionartech.com" />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
@@ -34,21 +43,25 @@ const Home = () => {
       <section className={styles['hero-section']} data-aos="fade-up">
         <div className={styles['hero-text']}>
           <h1 className={styles['main-text-1']}>Unlock Your Potential with AI-Enhanced Learning</h1>
-          <p className={styles['hero-description']}>"In an era where technology evolves at lightning speed, AI-enhanced learning empowers individuals to master complex skills with precision and adaptability, bridging the gap between human potential and machine intelligence for a future-ready workforce."</p>
+          <p className={styles['hero-description']}>
+            "In an era where technology evolves at lightning speed, AI-enhanced learning empowers
+            individuals to master complex skills with precision and adaptability, bridging the gap
+            between human potential and machine intelligence for a future-ready workforce."
+          </p>
           <button className={styles['explore-btn']}>Discover Programs</button>
         </div>
-        <div className={styles['ball-1']}></div>
-        <div className={styles['ball-2']}></div>
-        <div className={styles['overlay']}></div>
+        <div className={styles['ball-1']} />
+        <div className={styles['ball-2']} />
+        <div className={styles['overlay']} />
       </section>
 
       <SucessfulTransitions />
       <Companies />
 
-      <section className={styles['testimonials']} data-aos="fade-up">
+      <section className={styles.testimonials} data-aos="fade-up">
         <Testimonials />
         <div className={styles['motivational-quote']} data-aos="zoom-in">
-          <div className={styles['quote']}>
+          <div className={styles.quote}>
             <p>"You don’t have to be great to start, but you have to start to be great."</p>
             <small>– Zig Ziglar</small>
           </div>
@@ -57,7 +70,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      
+
       <WhyUs />
       <FAQ />
       <Contact />

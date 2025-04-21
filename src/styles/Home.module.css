@@ -45,7 +45,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('../assets/young-man.jpg') no-repeat center center/cover;
+  background: url('../assets/young-man.webp') no-repeat center center/cover;
   animation: zoomInOut 10s ease-in-out infinite;
   z-index: -2; /* Below balls and text */
 }

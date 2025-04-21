@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import styles from '../styles/Navbar.module.css';
-import navbarLogo from '../assets/logo/logo.png';
+import navbarLogo from '../assets/logo/logo.webp';
 import { getCoursesByDomainWithoutAuth } from '../utils/api';
 import TypingAnimation from '../components/TypingAnimation'; // Import the new component
 
