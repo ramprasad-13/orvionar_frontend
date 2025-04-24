@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query'; // Add useQuery
 import styles from '../styles/Navbar.module.css';
 import navbarLogo from '../assets/logo/logo.webp';
 import { getCoursesByDomainWithoutAuth } from '../utils/api';
-import TypingAnimation from '../components/TypingAnimation'; // Import the new component
+import TypingAnimation from '../components/TypingAnimation';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [selectedDomain, setSelectedDomain] = useState(null);
-  const [courses, setCourses] = useState([]);
-  const [loadingCourses, setLoadingCourses] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,38 +25,29 @@ const Navbar = () => {
     { display: 'OTHERS', key: 'others' },
   ];
 
+  // Use react-query to fetch courses
+  const { data: courses = [], isLoading: loadingCourses } = useQuery({
+    queryKey: ['courses', selectedDomain],
+    queryFn: () => getCoursesByDomainWithoutAuth(selectedDomain),
+    enabled: !!selectedDomain, // Only fetch when selectedDomain is set
+  });
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, [location]);
 
-  const fetchCourses = async (domainKey) => {
-    try {
-      setLoadingCourses(true);
-      const coursesData = await getCoursesByDomainWithoutAuth(domainKey);
-      setCourses(coursesData);
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-      setCourses([]);
-    } finally {
-      setLoadingCourses(false);
-    }
-  };
-
   const handleDomainClick = (domainKey) => {
     if (selectedDomain === domainKey) {
       setSelectedDomain(null);
-      setCourses([]);
     } else {
       setSelectedDomain(domainKey);
-      fetchCourses(domainKey);
     }
   };
 
   const handleProgramsToggle = () => {
     setIsProgramsOpen(!isProgramsOpen);
     setSelectedDomain(null);
-    setCourses([]);
   };
 
   const handleLoginLogout = () => {
@@ -176,7 +166,7 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <button className={styles.authButton} onClick={handleLoginLogout}>
+          <button name="auth-button" className={styles.authButton} onClick={handleLoginLogout}>
             {isLoggedIn ? 'Logout' : 'Login / Signup'}
           </button>
         </div>
