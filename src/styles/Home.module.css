@@ -4,25 +4,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.main-text-1 {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
-
-.main-text-2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #f68121;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.main-text-2 strong {
-  color: #000;
-}
-
 /* Hero Section */
 .hero-section {
   position: relative;
@@ -37,47 +18,27 @@
   overflow: hidden;
 }
 
-/* Background Image */
-.hero-section::before {
-  content: '';
+.hero-bg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('../assets/young-man.webp') no-repeat center center/cover;
-  animation: zoomInOut 10s ease-in-out infinite;
-  z-index: -2; /* Below balls and text */
-}
-
-@keyframes zoomInOut {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
+  object-fit: cover;
+  z-index: -2;
 }
 
 /* Ball effects */
-.hero-section::after,
-.hero-section .ball-1::before,
-.hero-section .ball-1::after,
-.hero-section .ball-2::before,
-.hero-section .ball-2::after {
+.ball-1::before,
+.ball-2::before {
   content: '';
   position: absolute;
   border-radius: 50%;
-  z-index: -1; /* Above background image, below text */
   opacity: 0.7;
+  z-index: -1;
 }
 
-
-/* Ball 2: White */
-.hero-section .ball-1::before {
+.ball-1::before {
   width: 300px;
   height: 300px;
   background-color: #808080;
@@ -85,8 +46,7 @@
   right: -13%;
 }
 
-/* Ball 4: White */
-.hero-section .ball-2::before {
+.ball-2::before {
   width: 500px;
   height: 500px;
   background-color: #808080;
@@ -98,7 +58,14 @@
   max-width: 70%;
   color: #000000;
   position: relative;
-  z-index: 1; /* Above background image and balls */
+  z-index: 1;
+}
+
+.main-text-1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
 }
 
 .hero-description {
@@ -122,11 +89,12 @@
   color: #a6a1a1;
 }
 
-.student-img {
-  width: 100%;
-  border-radius: 10px;
+/* Testimonials */
+.testimonials {
+  padding: 40px 20px;
 }
 
+/* Quote Section */
 .motivational-quote {
   display: flex;
   align-items: center;
@@ -162,10 +130,24 @@
     flex-direction: column;
     padding: 40px 15px;
   }
-  .hero-section::before {
-    background-position: 90% 0%;
+
+  .hero-bg {
+    object-fit: cover;
+    object-position: 90% 0%; /* Focus on the boy in the image */
   }
-  .hero-text, .hero-image {
+
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    z-index: -1;
+  }
+
+  .hero-text {
     max-width: 100%;
     text-align: center;
   }
@@ -175,99 +157,28 @@
     color: white;
   }
 
-  .main-text-2 {
-    font-size: 1.8rem;
-  }
   .hero-description {
     font-size: 1rem;
     color: aliceblue;
   }
+
   .explore-btn {
     padding: 10px 20px;
     font-size: 1rem;
   }
+
   .motivational-quote {
     flex-direction: column;
     max-width: 90%;
   }
 
-  /* Adjust ball sizes for smaller screens */
-  .hero-section::after {
-    width: 60px;
-    height: 60px;
-  }
-  .hero-section .ball-1::before {
+  .ball-1::before {
     width: 90px;
     height: 90px;
   }
-  .hero-section .ball-1::after {
-    width: 40px;
-    height: 40px;
-  }
-  .hero-section .ball-2::before {
+
+  .ball-2::before {
     width: 80px;
     height: 80px;
-  }
-  .hero-section .ball-2::after {
-    width: 50px;
-    height: 50px;
-  }
-
-  /* Darken hero-section background image on mobile with a separate overlay */
-  .hero-section .overlay::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
-    z-index: -1; /* Above background image, below text and balls */
-  }
-
-  .hero-text {
-    z-index: 1; /* Ensure text stays above overlay */
-  }
-}
-
-@media (max-width: 480px) {
-  .main-text-1 {
-    font-size: 2rem;
-  }
-
-  .main-text-2 {
-    font-size: 1.5rem;
-  }
-  .hero-description {
-    font-size: 1rem;
-  }
-  .explore-btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-  }
-  .motivational-quote {
-    flex-direction: column;
-  }
-
-  /* Further reduce ball sizes for very small screens */
-  .hero-section::after {
-    width: 50px;
-    height: 50px;
-  }
-  .hero-section .ball-1::before {
-    width: 70px;
-    height: 70px;
-  }
-  .hero-section .ball-1::after {
-    width: 30px;
-    height: 30px;
-  }
-  .hero-section .ball-2::before {
-    width: 60px;
-    height: 60px;
-  }
-  .hero-section .ball-2::after {
-    width: 40px;
-    height: 40px;
   }
 }
