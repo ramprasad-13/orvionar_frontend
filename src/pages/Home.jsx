@@ -15,7 +15,7 @@ import SucessfulTransitions from '../components/SucessfulTransitions';
 
 const Home = () => {
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    AOS.init({ duration: 300 });
     return () => AOS.refresh(); // Cleanup for AOS
   }, []);
 
@@ -40,8 +40,8 @@ const Home = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <section className={styles['hero-section']} data-aos="fade-up">
-        <div className={styles['hero-text']}>
+      <section className={styles['hero-section']} rel='preload' as='image'>
+        <div className={styles['hero-text']} data-aos="fade-left">
           <h1 className={styles['main-text-1']}>Unlock Your Potential with AI-Enhanced Learning</h1>
           <p className={styles['hero-description']}>
             "In an era where technology evolves at lightning speed, AI-enhanced learning empowers
@@ -66,7 +66,7 @@ const Home = () => {
             <small>– Zig Ziglar</small>
           </div>
           <div className={styles['rocket-gif']}>
-            <img src={rocketGif} alt="Rocket gif" loading="lazy" />
+            <img src={rocketGif} rel='preload' as='image' alt="Rocket gif" loading="lazy" />
           </div>
         </div>
       </section>
