@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Helmet } from 'react-helmet-async'; // Updated import
+import { Helmet } from 'react-helmet-async';
 import rocketGif from '../assets/gif/rocket.gif';
+import youngManImage from '../assets/young-man.webp'; // Import image directly
 import styles from '../styles/Home.module.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -16,7 +17,7 @@ import SucessfulTransitions from '../components/SucessfulTransitions';
 const Home = () => {
   useEffect(() => {
     AOS.init({ duration: 300 });
-    return () => AOS.refresh(); // Cleanup for AOS
+    return () => AOS.refresh();
   }, []);
 
   return (
@@ -38,11 +39,28 @@ const Home = () => {
         />
         <meta property="og:url" content="https://www.orvionartech.com" />
         <meta name="twitter:card" content="summary_large_image" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/young-man.webp"
+          fetchpriority="high"
+          type="image/webp"
+        />
       </Helmet>
 
-      <section className={styles['hero-section']} rel='preload' as='image'>
-        <div className={styles['hero-text']} data-aos="fade-left">
-          <h1 className={styles['main-text-1']}>Unlock Your Potential with AI-Enhanced Learning</h1>
+      <section className={styles['hero-section']}>
+        <img
+          src={youngManImage}
+          alt="Background"
+          className={styles['hero-bg']}
+          fetchpriority="high"
+        />
+        <div className={styles['hero-text']}>
+          <h1 className={styles['main-text-1']}>
+            Unlock Your Potential with AI-Enhanced Learning
+          </h1>
           <p className={styles['hero-description']}>
             "In an era where technology evolves at lightning speed, AI-enhanced learning empowers
             individuals to master complex skills with precision and adaptability, bridging the gap
@@ -52,7 +70,6 @@ const Home = () => {
         </div>
         <div className={styles['ball-1']} />
         <div className={styles['ball-2']} />
-        <div className={styles['overlay']} />
       </section>
 
       <SucessfulTransitions />
@@ -66,7 +83,7 @@ const Home = () => {
             <small>– Zig Ziglar</small>
           </div>
           <div className={styles['rocket-gif']}>
-            <img src={rocketGif} rel='preload' as='image' alt="Rocket gif" loading="lazy" />
+            <img src={rocketGif} alt="Rocket gif" loading="lazy" />
           </div>
         </div>
       </section>
