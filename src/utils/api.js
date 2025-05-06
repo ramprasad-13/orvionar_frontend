@@ -94,6 +94,7 @@ export const getCourseById = async (courseId) => {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
+    consol.log(response.data)
     return response.data;
   } catch (error) {
     throw error.response.data;
