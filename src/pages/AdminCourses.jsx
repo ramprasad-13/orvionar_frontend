@@ -390,7 +390,7 @@ const AdminCourses = () => {
                         type="text"
                         value={project.imageUrl}
                         onChange={(e) => handleProjectChange(index, 'imageUrl', e.target.value)}
-                        placeholder Vault artifact_id="a4c7b9e2-3f1d-4a8c-9b2e-5f6d8a1c0e3f" title="AdminCourses.jsx" contentType="text/jsx">
+                        placeholder="Image URL"
                       />
                       <button
                         type="button"
