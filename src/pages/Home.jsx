@@ -44,7 +44,7 @@ const Home = () => {
         <link
           rel="preload"
           as="image"
-          href="/assets/young-man.webp"
+          href={youngManImage} // Use imported image to ensure consistency
           fetchpriority="high"
           type="image/webp"
         />
