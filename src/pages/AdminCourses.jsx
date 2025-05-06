@@ -20,16 +20,24 @@ const AdminCourses = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [message, setMessage] = useState(null);
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const domains = ['cse', 'ece', 'mech', 'civil', 'management', 'pharmacy', 'agriculture', 'others'];
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     getAllCourses()
-      .then(response => setCourses(response))
+      .then(response => {
+        console.log('API response:', response);
+        setCourses(Array.isArray(response) ? response : []);
+        setIsLoading(false);
+      })
       .catch(error => {
-        setMessage('Error fetching courses');
+        setMessage('Error fetching courses: ' + error.message);
         setIsError(true);
+        setCourses([]);
+        setIsLoading(false);
         console.error('Error fetching courses:', error);
       });
   }, []);
@@ -53,7 +61,7 @@ const AdminCourses = () => {
       tags: tagsArray,
       domain: courseDomain,
       projects: projects.length > 0 ? projects : [],
-      curriculum: curriculum.length > 0 ? curriculum : []
+      curriculum: curriculum.length > 0 ? curriculum : [],
     };
 
     if (editIndex !== null) {
@@ -67,7 +75,7 @@ const AdminCourses = () => {
           setIsError(false);
         })
         .catch(error => {
-          setMessage('Error updating course');
+          setMessage('Error updating course: ' + error.message);
           setIsError(true);
           console.error('Error updating course:', error);
         });
@@ -79,7 +87,7 @@ const AdminCourses = () => {
           setIsError(false);
         })
         .catch(error => {
-          setMessage('Error adding course');
+          setMessage('Error adding course: ' + error.message);
           setIsError(true);
           console.error('Error adding course:', error);
         });
@@ -106,7 +114,7 @@ const AdminCourses = () => {
         setIsError(false);
       })
       .catch(error => {
-        setMessage('Error deleting course');
+        setMessage('Error deleting course: ' + error.message);
         setIsError(true);
         console.error('Error deleting course:', error);
       });
@@ -194,21 +202,18 @@ const AdminCourses = () => {
     setCurriculum(updatedCurriculum);
   };
 
-  const closeMessage = () => {
-    setMessage(null);
-    setIsError(false);
-  };
-
-  const filteredCourses = courses.filter(course =>
-    course.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCourses = Array.isArray(courses)
+    ? courses.filter(course =>
+        course.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false
+      )
+    : [];
 
   return (
     <div className={styles.adminCourses}>
       {message && (
         <div className={`${styles.messagePopup} ${isError ? styles.error : styles.success}`}>
           <span>{message}</span>
-          <button className={styles.closeBtn} onClick={closeMessage}>×</button>
+          <button className={styles.closeBtn} onClick={() => setMessage(null)}>×</button>
         </div>
       )}
       <div className={styles.formSection}>
@@ -385,7 +390,7 @@ const AdminCourses = () => {
                         type="text"
                         value={project.imageUrl}
                         onChange={(e) => handleProjectChange(index, 'imageUrl', e.target.value)}
-                        placeholder="Image URL"
+                        placeholder Vault artifact_id="a4c7b9e2-3f1d-4a8c-9b2e-5f6d8a1c0e3f" title="AdminCourses.jsx" contentType="text/jsx">
                       />
                       <button
                         type="button"
@@ -415,30 +420,64 @@ const AdminCourses = () => {
       </div>
 
       <div className={styles.coursesList}>
-        {filteredCourses.length > 0 ? (
+        {isLoading ? (
+          <p className={styles.noCourses}>Loading courses...</p>
+        ) : filteredCourses.length > 0 ? (
           filteredCourses.map((course, index) => (
             <div className={styles.courseCard} key={course._id}>
-              <img src={course.thumbnail} alt={course.name} className={styles.courseThumbnail} />
+              <img
+                src={course.thumbnail || '/default-thumbnail.png'}
+                alt={course.name || 'Course'}
+                className={styles.courseThumbnail}
+                loading="lazy"
+                onError={e => (e.target.src = '/default-thumbnail.png')}
+              />
               <div className={styles.courseContent}>
-                <h3 className={styles.courseTitle}>{course.name}</h3>
-                <p className={styles.courseDesc}>{course.description}</p>
-                <p className={styles.courseInfo}><strong>Instructor:</strong> {course.instructor}</p>
-                <p className={styles.courseInfo}><strong>Domain:</strong> {course.domain.toUpperCase()}</p>
+                <h3 className={styles.courseTitle}>{course.name || 'Untitled Course'}</h3>
+                <p className={styles.courseDesc}>
+                  {course.description || 'No description available'}
+                </p>
+                <p className={styles.courseInfo}>
+                  <strong>Instructor:</strong> {course.instructor || 'N/A'}
+                </p>
+                <p className={styles.courseInfo}>
+                  <strong>Domain:</strong> {(course.domain || 'others').toUpperCase()}
+                </p>
                 <div className={styles.courseTags}>
-                  {course.tags && course.tags.map((tag, idx) => (
-                    <span key={idx} className={styles.tag}>{tag}</span>
-                  ))}
+                  {Array.isArray(course.tags) &&
+                    course.tags.map((tag, idx) => (
+                      <span key={idx} className={styles.tag}>
+                        {tag}
+                      </span>
+                    ))}
                 </div>
                 <div className={styles.courseActions}>
-                  <button className={`${styles.actionBtn} ${styles.editBtn}`} onClick={() => handleEditCourse(index)}>Edit</button>
-                  <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={() => handleDeleteCourse(course._id)}>Delete</button>
-                  <button className={`${styles.actionBtn} ${styles.videoBtn}`} onClick={() => navigate(`/course/${course._id}/videos`)}>Manage Videos</button>
+                  <button
+                    className={`${styles.actionBtn} ${styles.editBtn}`}
+                    onClick={() => handleEditCourse(index)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className={`${styles.actionBtn} ${styles.deleteBtn}`}
+                    onClick={() => handleDeleteCourse(course._id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className={`${styles.actionBtn} ${styles.videoBtn}`}
+                    onClick={() => navigate(`/course/${course._id}/videos`)}
+                  >
+                    Manage Videos
+                  </button>
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <p className={styles.noCourses}>No courses found.</p>
+          <p className={styles.noCourses}>
+            {searchTerm ? 'No courses found.' : 'No courses were added.'}
+          </p>
         )}
       </div>
     </div>
