@@ -301,6 +301,7 @@ export const getAllCoursesWithoutAuth = async () => {
 export const getCourseByIdWithoutAuth = async (courseId) => {
   try {
     const response = await axios.get(`${noAuthUrl}/noauth/course/${courseId}`);
+    console.log(response.data)
     return response.data;
   } catch (error) {
     throw error.response.data;
