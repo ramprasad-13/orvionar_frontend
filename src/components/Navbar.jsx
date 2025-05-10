@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'; // Add useQuery
 import styles from '../styles/Navbar.module.css';
 import navbarLogo from '../assets/logo/logo.webp';
 import { getCoursesByDomainWithoutAuth } from '../utils/api';
-import TypingAnimation from '../components/TypingAnimation';
+//import TypingAnimation from '../components/TypingAnimation';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -75,7 +75,6 @@ const Navbar = () => {
           <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
             <img src={navbarLogo} alt="Logo" className={styles.navbarLogo} />
           </NavLink>
-          <TypingAnimation />
         </div>
 
         <button name='hambuger-menu' className={styles.mobileToggle} onClick={toggleMobileMenu}>
