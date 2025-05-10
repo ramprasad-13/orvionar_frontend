@@ -16,7 +16,7 @@
 }
 
 .navbarLogo {
-  height: 45px;
+  height: 80px;
   transition: transform 0.3s ease;
   color: #fff7ed;
 }
@@ -344,7 +344,7 @@
   }
 
   .navbarLogo {
-    height: 35px;
+    height: 50px;
   }
 
   .mobileToggle {
