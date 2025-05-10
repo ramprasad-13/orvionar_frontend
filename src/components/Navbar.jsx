@@ -73,7 +73,7 @@ const Navbar = () => {
       <div className={styles.navbarContainer}>
         <div className={styles.logoContainer}>
           <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <img src={navbarLogo} alt="Logo" className={styles.navbarLogo} />
+            <img src={navbarLogo} loading='lazy' alt="Logo" className={styles.navbarLogo} />
           </NavLink>
         </div>
 
