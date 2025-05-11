@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query'; // Add useQuery
+import { useQuery } from '@tanstack/react-query';
 import styles from '../styles/Navbar.module.css';
-import navbarLogo from '../assets/logo2.webp';
+import navbarLogo from '../assets/logo/logo2.jpg';
 import { getCoursesByDomainWithoutAuth } from '../utils/api';
-//import TypingAnimation from '../components/TypingAnimation';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,11 +24,10 @@ const Navbar = () => {
     { display: 'OTHERS', key: 'others' },
   ];
 
-  // Use react-query to fetch courses
   const { data: courses = [], isLoading: loadingCourses } = useQuery({
     queryKey: ['courses', selectedDomain],
     queryFn: () => getCoursesByDomainWithoutAuth(selectedDomain),
-    enabled: !!selectedDomain, // Only fetch when selectedDomain is set
+    enabled: !!selectedDomain,
   });
 
   useEffect(() => {
@@ -73,7 +71,7 @@ const Navbar = () => {
       <div className={styles.navbarContainer}>
         <div className={styles.logoContainer}>
           <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <img src={navbarLogo} loading='lazy' alt="Logo" className={styles.navbarLogo} />
+            <img src={navbarLogo} alt="Logo" className={styles.navbarLogo} />
           </NavLink>
         </div>
 
