@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import styles from '../styles/Navbar.module.css';
-import navbarLogo from '../assets/logo/logo2.jpg';
+import navbarLogo from '../assets/logo2.webp';
 import { getCoursesByDomainWithoutAuth } from '../utils/api';
 
 const Navbar = () => {
