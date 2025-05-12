@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from '../styles/Privacy.module.css';
+import useTitle from '../components/useTitle';
 
 const Privacy = () => {
+  useTitle(Privacy)
   return (
     <div className={styles.privacyPage}>
       {/* Hero Section */}
