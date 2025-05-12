@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from '../styles/Terms.module.css';
+import useTitle from '../components/useTitle';
 
 const Terms = () => {
+  useTitle('Terms')
   return (
     <div className={styles.termsPage}>
       {/* Hero Section */}
