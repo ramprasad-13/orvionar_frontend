@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from '../styles/About.module.css';
 import WhyUs from '../components/WhyUs';
+import useTitle from '../components/useTitle;
 
 const About = () => {
+  useTitle("About")
   return (
     <div className={styles.aboutPage}>
       {/* Hero Section */}
