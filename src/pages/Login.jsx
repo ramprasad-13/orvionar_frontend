@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../utils/api';
 import styles from '../styles/Login.module.css';
 import { useUser } from '../context/UserContext';
+import useTitle from '../components/useTitle';
 
 const Login = () => {
+
+  useTitle('Login')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
