@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { resetPassword } from '../utils/api';
 import styles from '../styles/ResetPassword.module.css'; // Import CSS Module
+import useTitle from '../components/useTitle';
 
 const ResetPassword = () => {
+  useTitle('Reset Password')
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
