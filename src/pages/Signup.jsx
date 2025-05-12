@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { signup } from '../utils/api';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Signup.module.css'; // Import CSS module
+import useTitle from '../components/useTitle';
 
 const Signup = () => {
+
+  useTitle('Signup')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
