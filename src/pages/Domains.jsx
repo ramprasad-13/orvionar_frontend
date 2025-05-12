@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Domains.module.css';
 import { getAllCoursesWithoutAuth } from '../utils/api';
+import useTitle from '../components/useTitle';
 
 const Domains = () => {
+  useTitle('Courses')
   const [domains, setDomains] = useState({
     cse: [], ece: [], mech: [], civil: [],
     management: [], pharmacy: [], agriculture: [], others: []
