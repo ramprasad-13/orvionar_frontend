@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from '../styles/Contact.module.css';
+import useTitle from '../components/useTitle';
 
 const Contact = () => {
+  useTitle("Contact")
   return (
     <div className={styles.contactPage}>
       {/* Hero Section */}
