@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from '../styles/Careers.module.css';
+import useTitle from '../components/useTitle';
 
 const Careers = () => {
+  useTitle("Careers")
   const jobs = [
     {
       id: 1,
