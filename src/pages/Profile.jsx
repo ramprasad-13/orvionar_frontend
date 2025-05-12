@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getUserProfile } from '../utils/api';
 import styles from '../styles/Profile.module.css';
+import useTitle from '../components/useTitle';
 
 const Profile = (props) => {
+  useTitle("Profile")
   const { user } = props;
   const id = user.userId;
   const [userInfo, setUserInfo] = useState({});
