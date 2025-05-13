@@ -19,8 +19,11 @@ const StudentCourses = (props) => {
         const userProfile = await getUserProfile(id);
         const courseIds = userProfile.coursesSubscribed || [];
 
+        console.log(courseIds);
+
         const coursePromises = courseIds.map(courseId => getCourseById(courseId));
         const courseDetails = await Promise.all(coursePromises);
+        console.log(courseDetails)
         setCourses(courseDetails);
       } catch (err) {
         console.error('Error fetching courses:', err);
