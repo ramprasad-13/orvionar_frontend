@@ -3,15 +3,17 @@ import styles from '../styles/SucessfulTransitions.module.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import studentImageBoy from '../assets/boy.avif';
-import studentImageGirl from '../assets/girl.avif';
+import img8 from '../assets/testimonials/8.webp';
+import img2 from '../assets/testimonials/2.webp';
+import img9 from '../assets/testimonials/9.webp';
+import img4 from '../assets/testimonials/4.webp';
 
 const SucessfulTransitions = () => {
   const [transitions] = useState([
-    { image: studentImageBoy, quote: "The course gave me the tools to ace my promotion interview.", name: "James Miller", role: "Senior Developer" },
-    { image: studentImageGirl, quote: "Thanks to the mentorship, I transitioned to a higher role.", name: "Sarah Lee", role: "Project Manager" },
-    { image: studentImageBoy, quote: "The knowledge helped me earn an appraisal!", name: "David Clark", role: "Software Engineer" },
-    { image: studentImageGirl, quote: "The practical approach helped me switch careers!", name: "Emily Brown", role: "Data Analyst" },
+    { image: img8, quote: "The course gave me the tools to ace my promotion interview.", name: "Sayed", role: "Software Developer" },
+    { image: img2, quote: "Thanks to the mentorship, I transitioned to a higher role.", name: "Kavya Maguluri", role: "Associate Software Engineer" },
+    { image: img9, quote: "The knowledge helped me earn an appraisal!", name: "Shivam", role: "Software Engineer" },
+    { image: img4, quote: "The practical approach helped me switch careers!", name: "Hari Kiran", role: "Data Analyst" },
   ]);
 
   const sliderRef = useRef(null); // Ref to control slider
