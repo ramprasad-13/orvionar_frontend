@@ -77,15 +77,15 @@ const Course = () => {
   const certificates = [
     {
       name: 'Course Completion',
-      image: 'https://placehold.co/600x400?text=Course+Completion+Certificate',
+      image: 'https://mystaticimages13.s3.eu-north-1.amazonaws.com/images/course+completion+text.png',
     },
     {
       name: 'Internship',
-      image: 'https://placehold.co/600x400?text=Internship+Certificate',
+      image: 'https://mystaticimages13.s3.eu-north-1.amazonaws.com/images/intership+cert++text.png',
     },
     {
-      name: 'Letter of Recommendation',
-      image: 'https://placehold.co/600x400?text=LOR+Certificate',
+      name: 'Certificate of Excellence',
+      image: 'https://mystaticimages13.s3.eu-north-1.amazonaws.com/images/particaption++text.png',
     },
   ];
 
