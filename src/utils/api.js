@@ -41,8 +41,6 @@ export const resetPassword = async (token, newPassword) => {
 }
 
 // Courses Routes
-
-// Add a new course
 export const addCourse = async (courseData) => {
   try {
     const response = await axios.post(`${baseURL}/course`, courseData, {
@@ -56,10 +54,9 @@ export const addCourse = async (courseData) => {
   }
 }
 
-// Get all courses
 export const getAllCourses = async () => {
   try {
-    const response = await axios.get(`${baseURL}/course`,{
+    const response = await axios.get(`${baseURL}/course`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
@@ -70,12 +67,9 @@ export const getAllCourses = async () => {
   }
 }
 
-
-
-// Get all courses by domain
 export const getCoursesByDomain = async (domain) => {
   try {
-    const response = await axios.get(`${baseURL}/course?domain=${domain}`,{
+    const response = await axios.get(`${baseURL}/course?domain=${domain}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
@@ -86,22 +80,19 @@ export const getCoursesByDomain = async (domain) => {
   }
 }
 
-// Get course by ID
 export const getCourseById = async (courseId) => {
   try {
-    const response = await axios.get(`${baseURL}/course/${courseId}`,{
+    const response = await axios.get(`${baseURL}/course/${courseId}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
-    console.log("get course by id:",response.data)
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-// Update course by ID
 export const updateCourse = async (courseId, updatedCourseData) => {
   try {
     const response = await axios.put(`${baseURL}/course/${courseId}`, updatedCourseData, {
@@ -115,7 +106,6 @@ export const updateCourse = async (courseId, updatedCourseData) => {
   }
 }
 
-// Delete course by ID
 export const deleteCourse = async (courseId) => {
   try {
     const response = await axios.delete(`${baseURL}/course/${courseId}`, {
@@ -130,13 +120,12 @@ export const deleteCourse = async (courseId) => {
 }
 
 // Video Routes
-
-// Add a new video to a course
 export const addVideo = async (videoData) => {
   try {
     const response = await axios.post(`${baseURL}/video`, videoData, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
       }
     });
     return response.data;
@@ -145,7 +134,6 @@ export const addVideo = async (videoData) => {
   }
 }
 
-// Get all videos for a course
 export const getAllVideos = async () => {
   try {
     const response = await axios.get(`${baseURL}/video`, {
@@ -153,13 +141,12 @@ export const getAllVideos = async () => {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
-    return response.data.videos;
+    return response.data.videos || [];
   } catch (error) {
     throw error.response.data;
   }
 }
 
-// Get video by ID
 export const getVideoById = async (videoId) => {
   try {
     const response = await axios.get(`${baseURL}/video/${videoId}`, {
@@ -167,30 +154,26 @@ export const getVideoById = async (videoId) => {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
-    return response.data;
+    return response.data.video;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-// Update video by ID
 export const updateVideo = async (videoId, videoData) => {
   try {
     const response = await axios.put(`${baseURL}/video/${videoId}`, videoData, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
       }
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-
-
-// Delete video by ID
 export const deleteVideo = async (videoId) => {
   try {
     const response = await axios.delete(`${baseURL}/video/${videoId}`, {
@@ -204,7 +187,6 @@ export const deleteVideo = async (videoId) => {
   }
 }
 
-// Get videos by course ID
 export const getVideosByCourseId = async (courseId) => {
   try {
     const response = await axios.get(`${baseURL}/videos/course/${courseId}`, {
@@ -212,17 +194,17 @@ export const getVideosByCourseId = async (courseId) => {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
-    return response.data.videos; // Assuming the response contains the video list
+    return response.data;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-//get profile of user
-export const getUserProfile= async(id)=>{
+// Get profile of user
+export const getUserProfile = async (id) => {
   try {
-    const response = await axios.get(`${baseURL}/profile/?id=${id}`,{
-      headers:{
+    const response = await axios.get(`${baseURL}/profile/?id=${id}`, {
+      headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
@@ -232,10 +214,10 @@ export const getUserProfile= async(id)=>{
   }
 }
 
-export const getUserByMail= async(emailId)=>{
+export const getUserByMail = async (emailId) => {
   try {
-    const response = await axios.get(`${baseURL}/profile/?email=${emailId}`,{
-      headers:{
+    const response = await axios.get(`${baseURL}/profile/?email=${emailId}`, {
+      headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
@@ -244,6 +226,7 @@ export const getUserByMail= async(emailId)=>{
     throw error.response.data;
   }
 }
+
 export const addUserToCourse = async (courseId, userId) => {
   try {
     const response = await axios.post(
@@ -263,7 +246,7 @@ export const addUserToCourse = async (courseId, userId) => {
   } catch (error) {
     throw error.response.data;
   }
-};
+}
 
 export const removeUserFromCourse = async (courseId, userId) => {
   try {
@@ -284,11 +267,9 @@ export const removeUserFromCourse = async (courseId, userId) => {
   } catch (error) {
     throw error.response.data;
   }
-};
+}
 
-
-
-//without auth get all courses
+// Without auth get all courses
 export const getAllCoursesWithoutAuth = async () => {
   try {
     const response = await axios.get(`${noAuthUrl}/noauth/courses`);
@@ -297,18 +278,16 @@ export const getAllCoursesWithoutAuth = async () => {
     throw error.response.data;
   }
 }
-//without auth get course by id
+
 export const getCourseByIdWithoutAuth = async (courseId) => {
   try {
     const response = await axios.get(`${noAuthUrl}/noauth/course/${courseId}`);
-    console.log(response.data)
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-// Get all courses by domain
 export const getCoursesByDomainWithoutAuth = async (domain) => {
   try {
     const response = await axios.get(`${noAuthUrl}/noauth/courses/?domain=${domain}`);
