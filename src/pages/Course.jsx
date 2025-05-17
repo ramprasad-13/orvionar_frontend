@@ -84,7 +84,7 @@ const Course = () => {
       image: 'https://mystaticimages13.s3.eu-north-1.amazonaws.com/images/intership+cert++text.png',
     },
     {
-      name: 'Certificate of Excellence',
+      name: 'Certificate of Participation',
       image: 'https://mystaticimages13.s3.eu-north-1.amazonaws.com/images/particaption++text.png',
     },
   ];
