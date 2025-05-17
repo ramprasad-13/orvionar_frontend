@@ -85,4 +85,8 @@
   .main-text-2 {
     font-size: 1.5rem;
   }
+  .testimonials{
+    padding:20px 0 !important;
+    margin:0;
+  }
 }
