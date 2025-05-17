@@ -21,7 +21,6 @@ import Domains from './pages/Domains';
 import Course from './pages/Course';
 import Profile from './pages/Profile';
 import AdminUserAccess from './pages/AdminUserAccess';
-import Play from './components/Play';
 import Footer from './pages/Footer';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
