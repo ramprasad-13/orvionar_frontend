@@ -230,6 +230,9 @@
 
 .videoPreview {
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .videoPreview img {
@@ -237,6 +240,22 @@
   height: 180px;
   object-fit: cover;
   border-bottom: 2px solid #4e2a84;
+  display: block;
+}
+
+.videoEmbed {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.videoEmbed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .playButton {
@@ -244,23 +263,42 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
   background: rgba(78, 42, 132, 0.8);
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s ease;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.videoCard:hover .playButton {
+.playButton:hover {
   background: rgba(78, 42, 132, 1);
+}
+
+.playButton:active {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.5);
+  animation: glowPulse 0.5s ease-in-out;
 }
 
 .playButton span {
   color: white;
   font-size: 1.5rem;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 215, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.5);
+  }
 }
 
 .videoInfo {
@@ -322,53 +360,14 @@
   margin: 20px 0;
 }
 
-.videoModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  position: relative;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  max-width: 800px;
-  width: 90%;
-  max-height: 90vh;
-  overflow: hidden;
-  animation: zoomIn 0.3s ease-in-out;
-}
-
-.closeBtn {
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 26px;
-  height: 26px;
-  background: #d32f2f;
-  color: white;
-  border: 2px solid #ffffff;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1001;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.closeBtn:hover {
-  background: #b71c1c;
-  transform: scale(1.1);
+.error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 10px 0;
+  background: rgba(255, 235, 235, 0.9);
+  padding: 8px;
+  border-radius: 4px;
 }
 
 /* Animations */
@@ -391,17 +390,6 @@
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes zoomIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -472,11 +460,12 @@
     font-size: 0.95rem;
   }
 
-  .closeBtn {
-    top: 1px;
-    right: 1px;
-    width: 25px;
-    height: 25px;
+  .playButton {
+    width: 50px;
+    height: 50px;
+  }
+
+  .playButton span {
     font-size: 1.2rem;
   }
 }
@@ -547,17 +536,12 @@
     font-size: 0.9rem;
   }
 
-  .modalContent {
-    padding: 15px;
-    max-width: 95%;
-    max-height: 85vh;
+  .playButton {
+    width: 50px;
+    height: 50px;
   }
 
-  .closeBtn {
-    top: 1px;
-    right: 1px;
-    width: 20px;
-    height: 20px;
-    font-size: 1rem;
+  .playButton span {
+    font-size: 1.2rem;
   }
 }
