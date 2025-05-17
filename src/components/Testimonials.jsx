@@ -4,23 +4,32 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import studentImageBoy from '../assets/boy.avif';
-import studentImageGirl from '../assets/girl.avif';
+import img1 from '../assets/testimonials/1.webp';
+import img2 from '../assets/testimonials/2.webp';
+import img3 from '../assets/testimonials/3.webp';
+import img4 from '../assets/testimonials/4.webp';
+import img5 from '../assets/testimonials/5.webp';
+import img6 from '../assets/testimonials/6.webp';
+import img7 from '../assets/testimonials/7.webp';
+import img8 from '../assets/testimonials/8.webp';
+import img9 from '../assets/testimonials/9.webp';
+import img10 from '../assets/testimonials/10.webp';
+
 import styles from '../styles/Testimonials.module.css';
 
 const Testimonials = () => {
 
       const testimonials = [
-        { image: studentImageBoy, text: "This course transformed my career!", name: "John Doe" },
-        { image: studentImageGirl, text: "The mentors were exceptional.", name: "Jane Smith" },
-        { image: studentImageBoy, text: "I landed my dream job thanks to this!", name: "Mike Johnson" },
-        { image: studentImageGirl, text: "Best learning experience ever.", name: "Emily Davis" },
-        { image: studentImageBoy, text: "Practical skills that employers love.", name: "Chris Brown" },
-        { image: studentImageGirl, text: "I gained confidence and expertise.", name: "Sarah Wilson" },
-        { image: studentImageBoy, text: "Top-notch content and support.", name: "David Lee" },
-        { image: studentImageGirl, text: "Helped me switch industries smoothly.", name: "Laura Martinez" },
-        { image: studentImageBoy, text: "Exceeded all my expectations!", name: "Tom Taylor" },
-        { image: studentImageGirl, text: "A game-changer for my professional life.", name: "Anna Clark" },
+        { image: img1, text: "This course transformed my career!", name: "Sunil" },
+        { image: img2, text: "The mentors were exceptional.", name: "Kavya Maguluri" },
+        { image: img3, text: "I landed my dream job thanks to this!", name: "Venkata Ramprasad" },
+        { image: img4, text: "Best learning experience ever.", name: "Hari Kiran" },
+        { image: img5, text: "Practical skills that employers love.", name: "Jathin Dumpala" },
+        { image: img6, text: "I gained confidence and expertise.", name: "Rakesh BommiReddy" },
+        { image: img7, text: "Top-notch content and support.", name: "Meghana Pade" },
+        { image: img8, text: "Helped me switch industries smoothly.", name: "Sayed" },
+        { image: img9, text: "Exceeded all my expectations!", name: "Shivam" },
+        { image: img10, text: "A game-changer for my professional life.", name: "Suresh Reddy" },
       ];
 
       const sliderSettings = {
