@@ -55,7 +55,7 @@ const Course = () => {
       const message = encodeURIComponent(
         `I'm interested in joining the ${course.domain.toUpperCase()} domain course: ${course.name} at the ${level} level`
       );
-      window.open(`https://wa.me/+919398832179?text=${message}`, '_blank');
+      window.open(`https://wa.me/+917483905485?text=${message}`, '_blank');
     }
   };
 
@@ -114,7 +114,7 @@ const Course = () => {
         <div className={styles.courseSection}>
           <div className={styles.courseHeader}>
             <h1 className={styles.courseTitle}>{course.name}</h1>
-            <p className={styles.courseInstructor}>By {course.instructor}</p>
+            {/* <p className={styles.courseInstructor}>By {course.instructor}</p> */}
           </div>
 
           <div className={styles.courseMain}>
