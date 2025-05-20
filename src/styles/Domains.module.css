@@ -64,12 +64,14 @@
   .course-card:hover {
     transform: translateY(-5px);
   }
-  
+    
   .course-thumbnail {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
+      width: 100%;
+      height: 213.33px; /* For 3:2 ratio with 320px width (320 * 2/3 ≈ 213.33px) */
+      object-fit: contain; /* Show full image without cropping */
+      display: block; /* Ensure proper rendering */
+      background-color: #f0f0f0; /* Optional: background for empty space */
+    }
   
   .course-content {
     padding: 1.5rem;
