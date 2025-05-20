@@ -95,7 +95,7 @@ const Domains = () => {
                 />
                 <div className={styles['course-content']}>
                   <h3 className={styles['course-title']}>{course.name}</h3>
-                  <p className={styles['course-instructor']}>By {course.instructor}</p>
+                  { /*<p className={styles['course-instructor']}>By {course.instructor}</p> */}
                   <p className={styles['course-description']}>{course.description}</p>
                   { /*<p className={styles['course-tags']}>{course.tags.join(", ")}</p> */ }
                   <button
