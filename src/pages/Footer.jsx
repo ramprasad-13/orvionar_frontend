@@ -23,7 +23,7 @@ const Footer = () => {
           <h3 className={styles.sectionTitle}>Contact Us</h3>
           <p className={styles.contactInfo}>Email: support@orvionar.com</p>
           <p className={styles.contactInfo}>Phone: +1 (555) 123-4567</p>
-          <p className={styles.contactInfo}>Address: 123 EdTech Lane, Knowledge City, USA</p>
+          <p className={styles.contactInfo}>Address: Orvionar Tech, BTM Layout, near Lake View Condiments, Bengaluru - 560068</p>
         </div>
 
         {/* Social Media Section */}
