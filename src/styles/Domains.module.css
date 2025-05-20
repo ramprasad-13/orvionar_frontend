@@ -163,14 +163,17 @@
     .main-title {
       font-size: 2rem;
     }
-    
     .course-grid {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-    
-    .course-card {
-      margin: 0.5rem;
-    }
+    grid-template-columns: repeat(auto-fill, 280px); /* From previous request */
+  }
+  
+  .course-card {
+    width: 280px;
+  }
+  
+  .course-thumbnail {
+    height: 186.67px; /* 280 * 2/3 ≈ 186.67px for 3:2 ratio */
+  }
     
     .domain-nav {
       gap: 0.5rem;
@@ -186,9 +189,19 @@
       padding: 1rem;
     }
     
-    .course-thumbnail {
-      height: 150px;
-    }
+    .course-grid {
+    grid-template-columns: 1fr; /* Single column */
+  }
+  
+  .course-card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  
+  .course-thumbnail {
+    height: 213.33px; /* Maintain 3:2 ratio for 320px width */
+  }
     
     .course-title {
       font-size: 1.2rem;
