@@ -123,7 +123,7 @@ const Course = () => {
             </div>
             <div className={styles.courseDetails}>
               <h2 className={styles.detailTitle}>{course.name}</h2>
-              <p className={styles.detailInstructor}>By {course.instructor}</p>
+              {/* <p className={styles.detailInstructor}>By {course.instructor}</p> */}
               <p className={styles.description}>{course.description}</p>
               <div className={styles.domainTag}>
                 <span>Domain: {course.domain.toUpperCase()}</span>
