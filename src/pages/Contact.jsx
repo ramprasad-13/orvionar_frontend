@@ -20,9 +20,9 @@ const Contact = () => {
       <section className={styles.contactInfoSection}>
         <div className={styles.contactInfo}>
           <p>
-            <strong>Address:</strong> 123 Tech Park, Innovation City, India | 
-            <strong>Email:</strong> info@orvionar.com | 
-            <strong>Phone:</strong> +91 12345 67890
+            <strong>Address:</strong> Orvionar Tech, BTM Layout, near Lake View Condiments, Bengaluru - 560068 | 
+            <strong>Email:</strong> info@orvionar.in | 
+            <strong>Phone:</strong> +91 7483905485
           </p>
         </div>
       </section>
