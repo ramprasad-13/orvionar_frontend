@@ -19,7 +19,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const openDomains = (e)=>{
-      e.PreventDefault()
+      e.preventDefault()
       navigate('/domains')
   }
   
@@ -60,6 +60,8 @@ const Home = () => {
 
       <section className={styles['hero-section']}>
         <img
+          width=500px
+          height=500px
           src={youngManImage}
           alt="Background"
           className={styles['hero-bg']}
