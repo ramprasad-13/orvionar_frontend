@@ -60,8 +60,8 @@ const Home = () => {
 
       <section className={styles['hero-section']}>
         <img
-          width=500px
-          height=500px
+          width='500px'
+          height='500px'
           src={youngManImage}
           alt="Background"
           className={styles['hero-bg']}
