@@ -8,12 +8,16 @@ import youngManImage from '../assets/young-man.webp'; // Import image directly
 import styles from '../styles/Home.module.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Companies from '../components/Companies';
-import Testimonials from '../components/Testimonials';
-import FAQ from '../components/FAQ';
-import WhyUs from '../components/WhyUs';
-import Contact from '../pages/Contact';
-import SucessfulTransitions from '../components/SucessfulTransitions';
+
+import { lazy, Suspense } from 'react';
+
+const Companies = lazy(() => import('../components/Companies'));
+const Testimonials = lazy(() => import('../components/Testimonials'));
+const FAQ = lazy(() => import('../components/FAQ'));
+const WhyUs = lazy(() => import('../components/WhyUs'));
+const Contact = lazy(() => import('../pages/Contact'));
+const SucessfulTransitions = lazy(() => import('../components/SucessfulTransitions'));
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -61,7 +65,8 @@ const Home = () => {
       <section className={styles['hero-section']}>
         <img
           width='500px'
-          height='500px'
+          height='500px',
+          loading='eager'
           src={youngManImage}
           alt="Background"
           className={styles['hero-bg']}
@@ -82,7 +87,9 @@ const Home = () => {
         <div className={styles['ball-2']} />
       </section>
 
-      <SucessfulTransitions />
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <SucessfulTransitions />
       <Companies />
 
       <section className={styles.testimonials} data-aos="fade-up">
@@ -101,6 +108,9 @@ const Home = () => {
       <WhyUs />
       <FAQ />
       <Contact />
+
+      </Suspense>
+
     </>
   );
 };
