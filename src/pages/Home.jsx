@@ -65,7 +65,7 @@ const Home = () => {
       <section className={styles['hero-section']}>
         <img
           width='500px'
-          height='500px',
+          height='500px'
           loading='eager'
           src={youngManImage}
           alt="Background"
