@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Helmet } from 'react-helmet-async';
@@ -15,6 +16,13 @@ import Contact from '../pages/Contact';
 import SucessfulTransitions from '../components/SucessfulTransitions';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const openDomains = (e)=>{
+      e.PreventDefault()
+      navigate('/domains')
+  }
+  
   useEffect(() => {
     AOS.init({ duration: 300 });
     return () => AOS.refresh();
@@ -66,7 +74,7 @@ const Home = () => {
             individuals to master complex skills with precision and adaptability, bridging the gap
             between human potential and machine intelligence for a future-ready workforce."
           </p>
-          <button className={styles['explore-btn']}>Discover Programs</button>
+          <button className={styles['explore-btn']} onClick={openDomains}>Discover Programs</button>
         </div>
         <div className={styles['ball-1']} />
         <div className={styles['ball-2']} />
