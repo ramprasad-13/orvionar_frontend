@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { Helmet } from 'react-helmet-async';
-import rocketGif from '../assets/gif/rocket.gif';
-import youngManImage from '../assets/young-man.webp'; // Import image directly
-import styles from '../styles/Home.module.css';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { InView } from 'react-intersection-observer';
+import Spinner from '../components/Spinner';
 
-import { lazy, Suspense } from 'react';
-
+// Lazy-loaded sections
 const Companies = lazy(() => import('../components/Companies'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
 const FAQ = lazy(() => import('../components/FAQ'));
@@ -18,99 +12,120 @@ const WhyUs = lazy(() => import('../components/WhyUs'));
 const Contact = lazy(() => import('../pages/Contact'));
 const SucessfulTransitions = lazy(() => import('../components/SucessfulTransitions'));
 
-
 const Home = () => {
   const navigate = useNavigate();
 
-  const openDomains = (e)=>{
-      e.preventDefault()
-      navigate('/domains')
-  }
-  
-  useEffect(() => {
-    AOS.init({ duration: 300 });
-    return () => AOS.refresh();
-  }, []);
+  const [load, setLoad] = useState({
+    transitions: false,
+    companies: false,
+    testimonials: false,
+    whyus: false,
+    faq: false,
+    contact: false,
+  });
+
+  const openDomains = (e) => {
+    e.preventDefault();
+    navigate('/domains');
+  };
+
+  const handleInView = (key) => (inView) => {
+    if (inView && !load[key]) {
+      setLoad((prev) => ({ ...prev, [key]: true }));
+    }
+  };
 
   return (
     <>
+      {/* SEO & Fonts */}
       <Helmet>
-        <title>Orvionar Tech - Advance Your Skills to the Elite 1%</title>
-        <meta
-          name="description"
-          content="Orvionar Tech offers expert-guided programs to help you advance your skills and succeed in today's dynamic job market."
-        />
-        <meta
-          name="keywords"
-          content="online courses, skill development, career growth, expert training, Orvionar Tech"
-        />
-        <meta property="og:title" content="Orvionar Tech - Advance Your Skills to the Elite 1%" />
-        <meta
-          property="og:description"
-          content="Orvionar Tech offers expert-guided programs to help you advance your skills and succeed in today's dynamic job market."
-        />
-        <meta property="og:url" content="https://www.orvionartech.com" />
+        <title>Orvionar Tech – Transform Your Future</title>
+        <meta name="description" content="Join Orvionar Tech to level up your skills and become part of the elite 1% in tech." />
+        <meta name="keywords" content="EdTech, skill development, tech training, AI courses, Orvionar" />
+        <meta property="og:title" content="Orvionar Tech – Advance with Confidence" />
+        <meta property="og:description" content="Get expert-guided, industry-ready programs for the most ambitious learners." />
         <meta name="twitter:card" content="summary_large_image" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link
           rel="preload"
-          as="image"
-          href={youngManImage} // Use imported image to ensure consistency
-          fetchpriority="high"
-          type="image/webp"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap"
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap"
+          media="print"
+          onLoad="this.media='all'"
+        />
+        <noscript>{`
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap" />
+        `}</noscript>
       </Helmet>
 
-      <section className={styles['hero-section']}>
-        <img
-          width='500px'
-          height='500px'
-          loading='eager'
-          src={youngManImage}
-          alt="Background"
-          className={styles['hero-bg']}
-          fetchpriority="high"
-        />
-        <div className={styles['hero-text']}>
-          <h1 className={styles['main-text-1']}>
-            Unlock Your Potential with AI-Enhanced Learning
+      {/* 🔥 Hero Section */}
+      <section className="bg-gradient-to-br from-orange-50 via-white to-orange-100 min-h-[90vh] flex items-center justify-center px-6 md:px-12 text-center">
+        <div className="max-w-5xl">
+          <h1
+            className="text-4xl md:text-6xl font-extrabold tracking-tight text-orange-700 leading-tight mb-6"
+            style={{ fontFamily: `'Poppins', sans-serif` }}
+          >
+            Learn Smarter.<br />Grow Faster.<br />Get Hired.
           </h1>
-          <p className={styles['hero-description']}>
-            "In an era where technology evolves at lightning speed, AI-enhanced learning empowers
-            individuals to master complex skills with precision and adaptability, bridging the gap
-            between human potential and machine intelligence for a future-ready workforce."
+          <p
+            className="text-gray-700 text-lg md:text-xl mb-8"
+            style={{ fontFamily: `'Inter', sans-serif` }}
+          >
+            At <strong>Orvionar Tech</strong>, we go beyond teaching — we transform your career with AI-powered programs, expert mentors,
+            and real-world outcomes. Trusted by thousands across India.
           </p>
-          <button className={styles['explore-btn']} onClick={openDomains}>Discover Programs</button>
-        </div>
-        <div className={styles['ball-1']} />
-        <div className={styles['ball-2']} />
-      </section>
-
-
-      <Suspense fallback={<div>Loading...</div>}>
-        <SucessfulTransitions />
-      <Companies />
-
-      <section className={styles.testimonials} data-aos="fade-up">
-        <Testimonials />
-        <div className={styles['motivational-quote']} data-aos="zoom-in">
-          <div className={styles.quote}>
-            <p>"You don’t have to be great to start, but you have to start to be great."</p>
-            <small>– Zig Ziglar</small>
-          </div>
-          <div className={styles['rocket-gif']}>
-            <img src={rocketGif} alt="Rocket gif" loading="lazy" />
-          </div>
+          <button
+            onClick={openDomains}
+            className="bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg px-6 py-3 rounded-full shadow-md transition-all duration-300"
+          >
+            🚀 Discover Our Programs
+          </button>
+          <p className="mt-4 text-sm text-gray-500">💼 97% of learners achieved job offers or promotions within 3 months.</p>
         </div>
       </section>
 
-      <WhyUs />
-      <FAQ />
-      <Contact />
+      {/* Lazy-loaded Sections */}
+      <Suspense fallback={<Spinner />}>
+        <InView as="div" onChange={handleInView('transitions')} triggerOnce>
+          {load.transitions && <SucessfulTransitions />}
+        </InView>
 
+        <InView as="div" onChange={handleInView('companies')} triggerOnce>
+          {load.companies && <Companies />}
+        </InView>
+
+        <InView as="div" onChange={handleInView('testimonials')} triggerOnce>
+          {load.testimonials && (
+            <section className="py-20 bg-gradient-to-b from-orange-50 via-white to-white">
+              <Testimonials />
+              <div className="max-w-3xl m-4 md:mx-auto mt-16 bg-white border border-orange-200 rounded-3xl shadow-xl px-8 py-10 text-center backdrop-blur-md">
+                <p className="text-xl italic text-gray-700 mb-4">
+                  “You don’t have to be great to start, but you have to start to be great.”
+                </p>
+                <span className="text-orange-600 font-bold">– Zig Ziglar</span>
+              </div>
+            </section>
+          )}
+        </InView>
+
+        <InView as="div" onChange={handleInView('whyus')} triggerOnce>
+          {load.whyus && <WhyUs />}
+        </InView>
+
+        <InView as="div" onChange={handleInView('faq')} triggerOnce>
+          {load.faq && <FAQ />}
+        </InView>
+
+        <InView as="div" onChange={handleInView('contact')} triggerOnce>
+          {load.contact && <Contact />}
+        </InView>
       </Suspense>
-
     </>
   );
 };

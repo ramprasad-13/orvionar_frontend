@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import styles from '../styles/Navbar.module.css';
 import navbarLogo from '../assets/logo2.webp';
 import { getCoursesByDomainWithoutAuth } from '../utils/api';
+import Spinner from '../components/Spinner';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,11 +36,7 @@ const Navbar = () => {
   }, [location]);
 
   const handleDomainClick = (domainKey) => {
-    if (selectedDomain === domainKey) {
-      setSelectedDomain(null);
-    } else {
-      setSelectedDomain(domainKey);
-    }
+    setSelectedDomain(prev => (prev === domainKey ? null : domainKey));
   };
 
   const handleProgramsToggle = () => {
@@ -66,104 +62,89 @@ const Navbar = () => {
     setSelectedDomain(null);
   };
 
-  return (
-    <nav className={styles.navbar}>
-      <div className={styles.navbarContainer}>
-        <div className={styles.logoContainer}>
-          <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <img src={navbarLogo} alt="Logo" className={styles.navbarLogo} />
-          </NavLink>
-        </div>
+  const handleCourseClick = () => {
+    setIsMobileMenuOpen(false);
+    setIsProgramsOpen(false);
+    setSelectedDomain(null);
+  };
 
-        <button name='hambuger-menu' className={styles.mobileToggle} onClick={toggleMobileMenu}>
-          <span className={`${styles.hamburger} ${isMobileMenuOpen ? styles.open : ''}`}>
-            {isMobileMenuOpen ? (
-              <span className={styles.closeIcon}>✕</span>
-            ) : (
-              <>
-                <span className={styles.bar}></span>
-                <span className={styles.bar}></span>
-                <span className={styles.bar}></span>
-              </>
-            )}
-          </span>
+  return (
+    <nav className="bg-black text-white shadow-md sticky top-0 z-50">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3">
+        <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
+          <img src={navbarLogo} alt="Logo" className="h-14 rounded transition-transform hover:scale-105" loading="lazy" />
+        </NavLink>
+
+        <button
+          onClick={toggleMobileMenu}
+          className="md:hidden text-orange-500 text-2xl"
+          aria-label="Toggle mobile menu"
+        >
+          {isMobileMenuOpen ? '✕' : '☰'}
         </button>
 
-        <div className={`${styles.navMenu} ${isMobileMenuOpen ? styles.open : ''}`}>
-          <ul className={styles.navList}>
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </NavLink>
-            </li>
+        <div
+          className={`${
+            isMobileMenuOpen ? 'flex' : 'hidden'
+          } md:flex flex-col md:flex-row md:items-center absolute md:static top-16 left-0 w-full md:w-auto bg-black md:bg-transparent transition-all duration-300 p-4 md:p-0 space-y-4 md:space-y-0 md:space-x-6`}
+        >
+          <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)} className={({ isActive }) => `hover:bg-orange-500 px-3 py-2 rounded ${isActive ? 'bg-orange-500' : ''}`}>Home</NavLink>
 
-            <li className={styles.programsContainer}>
-              <span
-                className={styles.navLink}
-                onClick={handleProgramsToggle}
-              >
-                Programs <span className={styles.arrow}>▼</span>
-              </span>
-              {isProgramsOpen && (
-                <div className={`${styles.dropdown} ${isProgramsOpen ? styles.open : ''}`}>
-                  <ul className={styles.domainList}>
-                    {domains.map((domain) => (
-                      <li
-                        key={domain.key}
-                        className={styles.domainItem}
+          <div className="relative">
+            <button onClick={handleProgramsToggle} className="hover:bg-orange-500 px-3 py-2 rounded flex items-center">
+              Programs <span className="ml-1">▼</span>
+            </button>
+            {isProgramsOpen && (
+              <div className="absolute top-full left-0 bg-white text-black rounded shadow-lg mt-2 w-72 z-40">
+                <ul>
+                  {domains.map((domain) => (
+                    <li key={domain.key}>
+                      <button
+                        className="w-full text-left px-4 py-2 hover:bg-orange-500 hover:text-white"
                         onClick={() => handleDomainClick(domain.key)}
                       >
-                        <span>
-                          {domain.display} 
-                          <span className={styles.domainArrow}>
-                            {window.innerWidth <= 768 ? '▼' : '▶'}
-                          </span>
-                        </span>
-                        {selectedDomain === domain.key && (
-                          <ul className={styles.coursesList}>
-                            {loadingCourses ? (
-                              <li className={styles.loading}>Loading courses...</li>
-                            ) : courses.length > 0 ? (
-                              courses.map((course) => (
-                                <li key={course._id}>
-                                  <NavLink
-                                    to={`/course/${course._id}`}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                  >
-                                    {course.name}
-                                  </NavLink>
-                                </li>
-                              ))
-                            ) : (
-                              <li className={styles.noCourses}>No courses available</li>
-                            )}
-                          </ul>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </li>
+                        {domain.display} {selectedDomain === domain.key ? <span className="ml-1">▼</span> : <span className="ml-1">▶</span>}
+                      </button>
+                      {selectedDomain === domain.key && (
+                        <ul className="bg-gray-50 max-h-60 overflow-y-auto px-4 py-2">
+                          {loadingCourses ? (
+                            <li className="italic text-sm text-gray-600"><Spinner /></li>
+                          ) : courses.length > 0 ? (
+                            courses.map((course) => (
+                              <li key={course._id}>
+                                <NavLink
+                                  to={`/course/${course._id}`}
+                                  className="block px-2 py-1 hover:text-orange-600"
+                                  onClick={handleCourseClick}
+                                >
+                                  {course.name}
+                                </NavLink>
+                              </li>
+                            ))
+                          ) : (
+                            <li className="italic text-sm text-gray-500">No courses available</li>
+                          )}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
 
-            {['My-library', 'About-Us', 'Careers'].map((label) => (
-              <li key={label}>
-                <NavLink
-                  to={`/${label.toLowerCase().replace(' ', '-')}`}
-                  className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          {['My-library', 'About-Us', 'Careers'].map((label) => (
+            <NavLink
+              key={label}
+              to={`/${label.toLowerCase().replace(' ', '-')}`}
+              className={({ isActive }) => `hover:bg-orange-500 px-3 py-2 rounded ${isActive ? 'bg-orange-500' : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {label}
+            </NavLink>
+          ))}
 
-          <button name="auth-button" className={styles.authButton} onClick={handleLoginLogout}>
+          <button onClick={handleLoginLogout} className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-full md:w-auto">
             {isLoggedIn ? 'Logout' : 'Login / Signup'}
           </button>
         </div>

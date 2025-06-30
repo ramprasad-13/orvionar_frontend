@@ -1,59 +1,56 @@
 import React from 'react';
-import styles from '../styles/Footer.module.css';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; // Using react-icons for social icons
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.container}>
+    <footer className="bg-gray-900 text-white px-6 py-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Quick Links Section */}
-        <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>Quick Links</h3>
-          <ul className={styles.linkList}>
-            <li><a href="/" className={styles.link}>Home</a></li>
-            <li><a href="/domains" className={styles.link}>Courses</a></li>
-            <li><a href="/contact" className={styles.link}>Contact</a></li>
-            <li><a href="/careers" className={styles.link}>Careers</a></li>
-            <li><a href="/about-us" className={styles.link}>About Us</a></li>
+        <div>
+          <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+          <ul className="space-y-2">
+            <li><a href="/" className="hover:text-gray-300">Home</a></li>
+            <li><a href="/domains" className="hover:text-gray-300">Courses</a></li>
+            <li><a href="/contact" className="hover:text-gray-300">Contact</a></li>
+            <li><a href="/careers" className="hover:text-gray-300">Careers</a></li>
+            <li><a href="/about-us" className="hover:text-gray-300">About Us</a></li>
           </ul>
         </div>
 
         {/* Contact Us Section */}
-        <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>Contact Us</h3>
-          <p className={styles.contactInfo}>Email: support@orvionar.in</p>
-          <p className={styles.contactInfo}>Phone: +91 7483905485</p>
-          <p className={styles.contactInfo}>Address: Orvionar Tech, BTM Layout, near Lake View Condiments, Bengaluru - 560068</p>
+        <div>
+          <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
+          <p className="mb-2">Email: support@orvionar.in</p>
+          <p className="mb-2">Phone: +91 7483905485</p>
+          <p>Address: Orvionar Tech, BTM Layout,<br />near Lake View Condiments, Bengaluru - 560068</p>
         </div>
 
         {/* Social Media Section */}
-        <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>Follow Us</h3>
-          <div className={styles.socialIcons}>
-            <a href="https://facebook.com/orvionar" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+        <div>
+          <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
+          <div className="flex space-x-4">
+            <a href="https://facebook.com/orvionar" aria-label="facebook link" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
               <FaFacebook size={24} />
             </a>
-            <a href="https://twitter.com/orvionar" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+            <a href="https://twitter.com/orvionar" aria-label="twitter link" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
               <FaTwitter size={24} />
             </a>
-            <a href="https://instagram.com/orvionar" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+            <a href="https://instagram.com/orvionar" aria-label="instagram link" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
               <FaInstagram size={24} />
             </a>
-            <a href="https://www.linkedin.com/company/orvionar-tech-private-limited/" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+            <a href="https://www.linkedin.com/company/orvionar-tech-private-limited/" aria-label="linkedin link" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
               <FaLinkedin size={24} />
             </a>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar with Copyright and Terms */}
-      <div className={styles.bottomBar}>
-        <p className={styles.copyright}>
-          &copy; {new Date().getFullYear()} Orvionar. All rights reserved.
-        </p>
-        <div className={styles.legalLinks}>
-          <a href="/terms" className={styles.legalLink}>Terms & Conditions</a>
-          <a href="/privacy" className={styles.legalLink}>Privacy Policy</a>
+      {/* Bottom Bar */}
+      <div className="mt-10 border-t border-gray-700 pt-4 text-sm text-gray-400 flex flex-col md:flex-row justify-between items-center">
+        <p>&copy; {new Date().getFullYear()} Orvionar. All rights reserved.</p>
+        <div className="space-x-4 mt-2 md:mt-0">
+          <a href="/terms" className="hover:text-white">Terms & Conditions</a>
+          <a href="/privacy" className="hover:text-white">Privacy Policy</a>
         </div>
       </div>
     </footer>

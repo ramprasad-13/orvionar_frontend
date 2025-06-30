@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../styles/Domains.module.css';
 import { getAllCoursesWithoutAuth } from '../utils/api';
 import useTitle from '../components/useTitle';
+import Spinner from '../components/Spinner';
 
 const Domains = () => {
-  useTitle('Courses')
+  useTitle('Courses');
   const [domains, setDomains] = useState({
     cse: [], ece: [], mech: [], civil: [],
     management: [], pharmacy: [], agriculture: [], others: []
@@ -29,21 +29,19 @@ const Domains = () => {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        // Fetch all courses at once
         const allCourses = await getAllCoursesWithoutAuth();
 
-        // Categorize courses by domain
         const coursesByDomain = {
           cse: [], ece: [], mech: [], civil: [],
           management: [], pharmacy: [], agriculture: [], others: []
         };
 
         allCourses.forEach(course => {
-          const domain = course.domain.toLowerCase();
+          const domain = course.domain?.toLowerCase();
           if (coursesByDomain[domain]) {
             coursesByDomain[domain].push(course);
           } else {
-            coursesByDomain.others.push(course); // Fallback for unrecognized domains
+            coursesByDomain.others.push(course);
           }
         });
 
@@ -63,62 +61,67 @@ const Domains = () => {
   };
 
   return (
-    <div className={styles['domains-container']}>
-      <h1 className={styles['main-title']}>Explore Courses by Domain</h1>
+    <div className="min-h-screen bg-gray-50 px-4 py-10">
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+        📚 Explore Courses by Domain
+      </h1>
 
       {/* Domain Navigation */}
-      <nav className={styles['domain-nav']}>
+      <div className="flex flex-wrap justify-center gap-3 mb-10">
         {Object.keys(domains).map((domain) => (
           <button
             key={domain}
-            className={`${styles['domain-btn']} ${selectedDomain === domain ? styles['active'] : ''}`}
-            onClick={() => setSelectedDomain(domain)}
             type="button"
+            className={`px-4 py-2 rounded-full text-sm font-medium transition 
+              ${selectedDomain === domain 
+                ? 'bg-orange-500 text-white shadow-md' 
+                : 'bg-white text-gray-700 border border-gray-300 hover:bg-orange-100'}`}
+            onClick={() => setSelectedDomain(domain)}
           >
             {domainDisplayNames[domain]}
           </button>
         ))}
-      </nav>
+      </div>
 
-      {/* Courses Section */}
-      <section className={styles['courses-section']}>
+      {/* Courses Grid */}
+      <div className="max-w-7xl mx-auto">
         {loading ? (
-          <p className={styles['loading-text']}>Loading courses...</p>
+          <Spinner/>
         ) : domains[selectedDomain].length > 0 ? (
-          <div className={styles['course-grid']}>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4">
             {domains[selectedDomain].map((course) => (
-              <div className={styles['course-card']} key={course._id}>
+              <div
+                key={course._id}
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden"
+              >
                 <img
-                  src={course.thumbnail}
+                  src={course.thumbnail || 'https://via.placeholder.com/400x200?text=Course+Thumbnail'}
                   alt={course.name}
-                  className={styles['course-thumbnail']}
+                  className="w-full h-48 object-cover"
                 />
-                <div className={styles['course-content']}>
-                  <h3 className={styles['course-title']}>{course.name}</h3>
-                  { /*<p className={styles['course-instructor']}>By {course.instructor}</p> */}
-                  <p className={styles['course-description']}>
-                    {course.description.length > 200 
-                      ? `${course.description.substring(0, 200)}....` 
-                      : course.description}
+                <div className="p-5">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{course.name}</h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    {course.description?.length > 200
+                      ? `${course.description.substring(0, 200)}...`
+                      : course.description || 'No description available'}
                   </p>
-                  { /*<p className={styles['course-tags']}>{course.tags.join(", ")}</p> */ }
                   <button
-                    type="button"
-                    className={styles['enroll-btn']}
                     onClick={() => handleKnowMore(course._id)}
+                    className="w-full mt-auto bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
                   >
-                    Know More
+                    Know More →
                   </button>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <p className={styles['no-courses']}>
-            No courses available in {domainDisplayNames[selectedDomain]} domain
+          <p className="text-center text-gray-500 text-lg">
+            No courses available in <strong>{domainDisplayNames[selectedDomain]}</strong> domain
           </p>
         )}
-      </section>
+      </div>
     </div>
   );
 };

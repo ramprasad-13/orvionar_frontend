@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { resetPassword } from '../utils/api';
-import styles from '../styles/ResetPassword.module.css'; // Import CSS Module
 import useTitle from '../components/useTitle';
 
 const ResetPassword = () => {
-  useTitle('Reset Password')
+  useTitle('Reset Password');
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,42 +48,56 @@ const ResetPassword = () => {
   }, [token]);
 
   return (
-    <div className={styles.resetContainerWrapper}>
-      <div className={styles.resetBox}>
-        <h2 className={styles.resetTitle}>Reset Your Password</h2>
-        <p className={styles.resetSubtitle}>Enter your new password below</p>
+    <div className="min-h-screen flex items-center justify-center bg-orange-50 px-4">
+      <div className="bg-white shadow-lg border border-orange-300 rounded-md p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold text-black mb-2 text-center">Reset Your Password</h2>
+        <p className="text-gray-600 mb-6 text-center">Enter your new password below</p>
 
-        {message && <div className={styles.successMessage}>{message}</div>}
-        {error && <div className={styles.errorMessage}>{error}</div>}
+        {message && (
+          <div className="bg-green-100 text-green-700 px-4 py-2 mb-4 rounded text-sm text-center">
+            {message}
+          </div>
+        )}
 
-        <form onSubmit={handleResetPassword} className={styles.resetForm}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="newPassword" className={styles.inputLabel}>New Password</label>
+        {error && (
+          <div className="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded text-sm text-center">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleResetPassword} className="space-y-5">
+          <div>
+            <label htmlFor="newPassword" className="block text-sm font-medium text-black mb-1">New Password</label>
             <input
               type="password"
               id="newPassword"
-              className={styles.inputField}
               placeholder="Enter your new password"
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="confirmPassword" className={styles.inputLabel}>Confirm Password</label>
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-black mb-1">Confirm Password</label>
             <input
               type="password"
               id="confirmPassword"
-              className={styles.inputField}
               placeholder="Confirm your new password"
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
 
-          <button type="submit" className={styles.resetBtn}>Reset Password</button>
+          <button
+            type="submit"
+            className="w-full bg-black text-white font-semibold py-2 px-4 rounded hover:bg-orange-600 transition duration-200"
+          >
+            Reset Password
+          </button>
         </form>
       </div>
     </div>

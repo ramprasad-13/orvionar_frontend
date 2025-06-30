@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../utils/api';
-import styles from '../styles/Login.module.css';
 import { useUser } from '../context/UserContext';
 import useTitle from '../components/useTitle';
 
 const Login = () => {
+  useTitle('Login');
 
-  useTitle('Login')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -43,14 +42,22 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.loginContainerWrapper}>
-      <div className={styles.loginBox}>
-        <h2 className={styles.loginTitle}>Welcome Back</h2>
-        <p className={styles.loginSubtitle}>Please login to your account</p>
-        {error && <div className={styles.errorMessage}>{error}</div>}
-        <form onSubmit={handleLogin} className={styles.loginForm}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="email">Email</label>
+    <div className="min-h-screen flex items-center justify-center bg-orange-50 px-4">
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md border border-orange-300">
+        <h2 className="text-3xl font-bold text-black mb-2 text-center">Welcome Back</h2>
+        <p className="text-gray-600 mb-6 text-center">Please login to your account</p>
+
+        {error && (
+          <div className="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded text-sm">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-5">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-black mb-1">
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -58,10 +65,13 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </div>
-          <div className={styles.inputGroup}>
-            <label htmlFor="password">Password</label>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-black mb-1">
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -69,16 +79,28 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </div>
-          <button type="submit" className={styles.loginBtn}>Login</button>
+          <button
+            type="submit"
+            className="w-full bg-black text-white font-semibold py-2 px-4 rounded hover:bg-orange-600 transition duration-200"
+          >
+            Login
+          </button>
         </form>
-        <div className={styles.authLinks}>
-          <p>
-            Don't have an account? <a href="/signup">Sign Up</a>
+
+        <div className="mt-6 text-center text-sm text-gray-700">
+          <p className="mb-2">
+            Don&apos;t have an account?{' '}
+            <a href="/signup" className="text-orange-600 hover:underline">
+              Sign Up
+            </a>
           </p>
           <p>
-            <a href="/request-reset-password">Forgot Password?</a>
+            <a href="/request-reset-password" className="text-orange-600 hover:underline">
+              Forgot Password?
+            </a>
           </p>
         </div>
       </div>
