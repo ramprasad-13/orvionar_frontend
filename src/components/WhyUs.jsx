@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import img1 from '../assets/whyus/1.webp';
@@ -58,6 +58,14 @@ const WhyUs = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
+  const [flippedCards, setFlippedCards] = useState(Array(cardData.length).fill(false));
+
+  const toggleFlip = (index) => {
+    const newFlipped = [...flippedCards];
+    newFlipped[index] = !newFlipped[index];
+    setFlippedCards(newFlipped);
+  };
+
   return (
     <section className="bg-orange-50 py-16 px-4" data-aos="fade-up">
       <h2 className="text-4xl font-bold text-orange-500 text-center mb-10">Why Choose Us?</h2>
@@ -66,11 +74,16 @@ const WhyUs = () => {
         {cardData.map((card, index) => (
           <div
             key={index}
-            className="group perspective h-[300px]"
+            className="group perspective h-[300px] cursor-pointer"
             data-aos="fade-up"
             data-aos-delay={100 + index * 100}
+            onClick={() => toggleFlip(index)}
           >
-            <div className="relative w-full h-full duration-700 transform-style-3d group-hover:rotate-y-180">
+            <div
+              className={`relative w-full h-full duration-700 transform-style-3d ${
+                flippedCards[index] ? 'rotate-y-180' : ''
+              } group-hover:rotate-y-180`}
+            >
               {/* Front Side */}
               <div className="absolute w-full h-full backface-hidden flex flex-col justify-center items-center rounded-xl shadow-md bg-gradient-to-br from-white to-orange-100 p-4">
                 <img
