@@ -23,9 +23,7 @@ const Footer = () => {
           <p className="mb-2">Email: support@orvionar.in</p>
           <p className="mb-2">Phone: +91 7483905485</p>
           <p>Address: 36/5, Hustlehub Tech Park,<br />
-            Somasundarapalya Main Rd, adjacent 27th Main Road,
-            <br/>ITI Layout, Sector 2, HSR Layout, 
-            <br/>HaralukunteVillage, Bengaluru, Karnataka 560102
+            Somasundarapalya Main Rd, adjacent 27th Main Road, ITI Layout, Sector 2, HSR Layout, HaralukunteVillage, Bengaluru, Karnataka 560102.
           </p>
         </div>
 
