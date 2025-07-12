@@ -296,3 +296,36 @@ export const getCoursesByDomainWithoutAuth = async (domain) => {
     throw error.response.data;
   }
 }
+
+
+
+export const markVideoComplete = async ({ userId, courseId, videoId }) => {
+  try {
+    const response = await axios.post(`${baseURL}/progress/mark-complete`, {
+      userId,
+      courseId,
+      videoId
+    }, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Unknown error' };
+  }
+};
+
+export const getUserCourseProgress = async (userId, courseId) => {
+  try {
+    const response = await axios.get(`${baseURL}/progress/${userId}/${courseId}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Unknown error' };
+  }
+};
+
