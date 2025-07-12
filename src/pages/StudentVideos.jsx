@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getCourseById, getVideosByCourseId } from '../utils/api';
-
+import {
+  getCourseById,
+  getVideosByCourseId,
+  markVideoComplete,
+  getUserCourseProgress
+} from '../utils/api';
 import Spinner from '../components/Spinner';
 
 const StudentVideos = () => {
@@ -23,22 +27,47 @@ const StudentVideos = () => {
         setCourseDetails(course);
         const videoRes = await getVideosByCourseId(courseId);
         setVideos(videoRes.videos || []);
+
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          const user = JSON.parse(storedUser);
+          if (user?.userId) {
+            const progress = await getUserCourseProgress(user.userId, courseId);
+            setWatchedVideos(progress.watchedVideoIds || []);
+          } else {
+            console.warn('userId not found in stored user');
+          }
+        } else {
+          console.warn('User not found in localStorage');
+        }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         setError('Failed to load course or videos. Please try again later.');
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
   }, [courseId]);
 
-  const handleMarkAsRead = (videoId) => {
-    setWatchedVideos((prev) => {
-      const updated = [...new Set([...prev, videoId])];
-      setLastWatchedVideoId(videoId);
-      return updated;
-    });
+  const handleMarkAsRead = async (videoId) => {
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) return alert('User not logged in');
+
+    const user = JSON.parse(storedUser);
+    if (!user?.userId) return alert('User ID missing');
+
+    try {
+      await markVideoComplete({ userId: user.userId, courseId, videoId });
+      setWatchedVideos((prev) => {
+        const updated = [...new Set([...prev, videoId])];
+        setLastWatchedVideoId(videoId);
+        return updated;
+      });
+    } catch (err) {
+      console.error('Failed to mark video as complete:', err);
+    }
   };
 
   const handlePlayVideo = (videoId) => {
