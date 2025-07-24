@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { InView } from 'react-intersection-observer';
 import Spinner from '../components/Spinner';
+import heroBoy from '../assets/bg.webp'; // Import your image
 
 // Lazy-loaded sections
 const Companies = lazy(() => import('../components/Companies'));
@@ -65,16 +66,29 @@ const Home = () => {
       </Helmet>
 
       {/* 🔥 Hero Section */}
-      <section className="bg-gradient-to-br from-orange-50 via-white to-orange-100 min-h-[90vh] flex items-center justify-center px-6 md:px-12 text-center">
-        <div className="max-w-5xl">
+      <section
+        className={`relative min-h-[90vh] flex items-center justify-center px-6 md:px-12 text-center
+                   bg-no-repeat bg-contain bg-center md:bg-right-bottom`}
+        style={{ backgroundImage: `url(${heroBoy})` }}
+      >
+        {/* Gradient Overlay for readability - visible on small/medium, hidden on large */}
+        <div className="absolute inset-0 bg-gradient-to-b from-orange-50/80 via-white/70 to-orange-100/80 md:hidden"></div>
+
+        {/* The text content */}
+        <div className="max-w-5xl relative z-10">
           <h1
-            className="text-4xl md:text-6xl font-extrabold tracking-tight text-orange-700 leading-tight mb-6"
+            className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6
+                       text-orange-700 // H1 always remains original color
+                      "
             style={{ fontFamily: `'Poppins', sans-serif` }}
           >
             Learn Smarter.<br />Grow Faster.<br />Get Hired.
           </h1>
           <p
-            className="text-gray-700 text-lg md:text-xl mb-8"
+            className="text-gray-700 text-lg md:text-xl mb-8
+                       sm:text-gray-900 // Darker gray for small screens
+                       md:text-gray-700 // Original color for medium and up
+                      "
             style={{ fontFamily: `'Inter', sans-serif` }}
           >
             At <strong>Orvionar Tech</strong>, we go beyond teaching — we transform your career with AI-powered programs, expert mentors,
