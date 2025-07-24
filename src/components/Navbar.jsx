@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import navbarLogo from '../assets/logo2.webp';
@@ -12,6 +12,7 @@ const Navbar = () => {
   const [selectedDomain, setSelectedDomain] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const programsRef = useRef(null); // Ref for the programs dropdown
 
   const domains = [
     { display: 'CSE/IT', key: 'cse' },
@@ -34,6 +35,21 @@ const Navbar = () => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, [location]);
+
+  // Effect to handle clicks outside the programs dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (programsRef.current && !programsRef.current.contains(event.target) && isProgramsOpen) {
+        setIsProgramsOpen(false);
+        setSelectedDomain(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isProgramsOpen]);
 
   const handleDomainClick = (domainKey) => {
     setSelectedDomain(prev => (prev === domainKey ? null : domainKey));
@@ -63,6 +79,7 @@ const Navbar = () => {
   };
 
   const handleCourseClick = () => {
+    // When a course is clicked, close all menus
     setIsMobileMenuOpen(false);
     setIsProgramsOpen(false);
     setSelectedDomain(null);
@@ -90,7 +107,7 @@ const Navbar = () => {
         >
           <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)} className={({ isActive }) => `hover:bg-orange-500 px-3 py-2 rounded ${isActive ? 'bg-orange-500' : ''}`}>Home</NavLink>
 
-          <div className="relative">
+          <div className="relative" ref={programsRef}> {/* Attach ref here */}
             <button onClick={handleProgramsToggle} className="hover:bg-orange-500 px-3 py-2 rounded flex items-center">
               Programs <span className="ml-1">▼</span>
             </button>
@@ -106,7 +123,7 @@ const Navbar = () => {
                         {domain.display} {selectedDomain === domain.key ? <span className="ml-1">▼</span> : <span className="ml-1">▶</span>}
                       </button>
                       {selectedDomain === domain.key && (
-                        <ul className="bg-gray-50 max-h-60 overflow-y-auto px-4 py-2">
+                        <ul className="bg-gray-100 max-h-60 overflow-y-auto px-4 py-2 border-t border-gray-200"> {/* Added bg-gray-100 for differentiation */}
                           {loadingCourses ? (
                             <li className="italic text-sm text-gray-600"><Spinner /></li>
                           ) : courses.length > 0 ? (
@@ -114,7 +131,7 @@ const Navbar = () => {
                               <li key={course._id}>
                                 <NavLink
                                   to={`/course/${course._id}`}
-                                  className="block px-2 py-1 hover:text-orange-600"
+                                  className="block px-2 py-1 hover:text-orange-600 bg-gray-200 my-1 rounded" // Added different background color and padding
                                   onClick={handleCourseClick}
                                 >
                                   {course.name}
