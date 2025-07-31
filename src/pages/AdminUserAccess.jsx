@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
   getAllCourses,
-  getUserByMail,
+  getUserByMail, // This now calls the admin-specific endpoint
   addUserToCourse,
   removeUserFromCourse,
 } from '../utils/api';
+import Spinner from '../components/Spinner'; // Assuming you have a Spinner component
 
 const AdminUserAccess = () => {
   const [courses, setCourses] = useState([]);
@@ -12,6 +13,7 @@ const AdminUserAccess = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState('');
   const [message, setMessage] = useState({ text: '', type: '' });
+  const [loading, setLoading] = useState(false); // New loading state for fetching user
 
   useEffect(() => {
     getAllCourses()
@@ -23,36 +25,52 @@ const AdminUserAccess = () => {
     e.preventDefault();
     setMessage({ text: '', type: '' });
     setUserProfile(null);
+    setLoading(true); // Start loading
     try {
-      const userData = await getUserByMail(email);
+      const userData = await getUserByMail(email); // This calls the new admin endpoint
       setUserProfile(userData);
-    } catch {
-      setMessage({ text: 'User not found or invalid email', type: 'error' });
+    } catch (error) {
+      console.error('Error fetching user by email:', error);
+      setMessage({ text: error.message || 'User not found or invalid email', type: 'error' });
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   const handleAddCourse = async () => {
     if (!selectedCourse || !userProfile) return;
+    setMessage({ text: '', type: '' });
+    setLoading(true); // Start loading for course modification
     try {
       await addUserToCourse(selectedCourse, userProfile.userId);
       setMessage({ text: 'Course added successfully!', type: 'success' });
-      const updatedUser = await getUserByMail(email);
-      setUserProfile(updatedUser.profile);
+      // Re-fetch the user's profile to update the displayed courses
+      const updatedUser = await getUserByMail(email); // Re-fetch from the admin endpoint
+      setUserProfile(updatedUser); // Directly set the updated profile
       setSelectedCourse('');
-    } catch {
-      setMessage({ text: 'Failed to add course', type: 'error' });
+    } catch (error) {
+      console.error('Failed to add course:', error);
+      setMessage({ text: error.message || 'Failed to add course', type: 'error' });
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   const handleRemoveCourse = async (courseId) => {
     if (!userProfile) return;
+    setMessage({ text: '', type: '' });
+    setLoading(true); // Start loading for course modification
     try {
       await removeUserFromCourse(courseId, userProfile.userId);
       setMessage({ text: 'Course removed successfully!', type: 'success' });
-      const updatedUser = await getUserByMail(email);
-      setUserProfile(updatedUser.profile);
-    } catch {
-      setMessage({ text: 'Failed to remove course', type: 'error' });
+      // Re-fetch the user's profile to update the displayed courses
+      const updatedUser = await getUserByMail(email); // Re-fetch from the admin endpoint
+      setUserProfile(updatedUser); // Directly set the updated profile
+    } catch (error) {
+      console.error('Failed to remove course:', error);
+      setMessage({ text: error.message || 'Failed to remove course', type: 'error' });
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -81,8 +99,9 @@ const AdminUserAccess = () => {
         <button
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          disabled={loading} // Disable button while loading
         >
-          Fetch User
+          {loading ? 'Fetching...' : 'Fetch User'}
         </button>
       </form>
 
@@ -98,7 +117,13 @@ const AdminUserAccess = () => {
         </div>
       )}
 
-      {userProfile && (
+      {loading && ( // Show spinner while fetching user
+        <div className="flex justify-center my-4">
+          <Spinner />
+        </div>
+      )}
+
+      {!loading && userProfile && ( // Only show profile if not loading and userProfile exists
         <div className="bg-white shadow-md rounded p-6 space-y-6">
           <h2 className="text-xl font-semibold">User Profile</h2>
           <div className="space-y-2 text-sm text-gray-700">
@@ -124,6 +149,7 @@ const AdminUserAccess = () => {
                       <button
                         onClick={() => handleRemoveCourse(courseId)}
                         className="text-red-600 hover:underline text-sm"
+                        disabled={loading} // Disable button while loading
                       >
                         Remove
                       </button>
@@ -157,9 +183,9 @@ const AdminUserAccess = () => {
 
               <button
                 onClick={handleAddCourse}
-                disabled={!selectedCourse}
+                disabled={!selectedCourse || loading} // Disable button while loading or no course selected
                 className={`px-4 py-2 rounded text-white ${
-                  selectedCourse
+                  selectedCourse && !loading
                     ? 'bg-green-600 hover:bg-green-700'
                     : 'bg-gray-400 cursor-not-allowed'
                 }`}
@@ -168,6 +194,11 @@ const AdminUserAccess = () => {
               </button>
             </div>
           </div>
+        </div>
+      )}
+      {!loading && !userProfile && email && message.type === 'error' && (
+        <div className="bg-white shadow-md rounded p-6 text-center text-gray-700">
+          <p>{message.text}</p>
         </div>
       )}
     </div>

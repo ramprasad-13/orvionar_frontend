@@ -3,6 +3,9 @@ import axios from 'axios';
 const baseURL = 'https://orvionar-backend.vercel.app/api';  // Ensure this URL points to your backend
 const noAuthUrl = 'https://orvionar-backend.vercel.app'; // URL for no auth routes
 
+// const baseURL = 'http://localhost:3000/api';
+// const noAuthUrl = 'http://localhost:3000';
+
 // Authentication Routes
 export const login = async (email, password) => {
   try {
@@ -200,10 +203,9 @@ export const getVideosByCourseId = async (courseId) => {
   }
 }
 
-// Get profile of user
-export const getUserProfile = async (id) => {
+export const getUserProfile = async () => {
   try {
-    const response = await axios.get(`${baseURL}/profile/?id=${id}`, {
+    const response = await axios.get(`${baseURL}/profile`, { // No query params needed here
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
@@ -214,18 +216,21 @@ export const getUserProfile = async (id) => {
   }
 }
 
+// Get user by email (for admin search functionality) - calls new backend endpoint
 export const getUserByMail = async (emailId) => {
   try {
-    const response = await axios.get(`${baseURL}/profile/?email=${emailId}`, {
+    // This now calls the new admin-specific endpoint
+    const response = await axios.get(`${baseURL}/admin/user/?email=${emailId}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }
     });
-    return response.data.profile;
+    return response.data.profile; // Backend should return { profile: ... }
   } catch (error) {
     throw error.response.data;
   }
 }
+
 
 export const addUserToCourse = async (courseId, userId) => {
   try {
@@ -328,4 +333,3 @@ export const getUserCourseProgress = async (userId, courseId) => {
     throw error.response?.data || { message: 'Unknown error' };
   }
 };
-

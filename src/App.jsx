@@ -1,7 +1,8 @@
 import { useEffect, lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
-import { UserProvider, useUser } from './context/UserContext';
+import { UserProvider } from './context/UserContext';
+import { useUser } from './context/useUser'; // Import useUser from its own file
 import { getCoursesByDomainWithoutAuth } from './utils/api';
 import './App.css';
 
@@ -28,8 +29,8 @@ const AdminUserAccess = lazy(() => import('./pages/AdminUserAccess'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Careers = lazy(() => import('./pages/Careers'));
-const Spinner = lazy(() => import('./components/Spinner'));
-const PlayVideo = lazy(() => import('./components/PlayVideo')); // ✅ Added
+const Spinner = lazy(() => import('./components/Spinner')); // Make sure Spinner is imported
+const PlayVideo = lazy(() => import('./components/PlayVideo'));
 
 // Query client setup
 const queryClient = new QueryClient({
@@ -64,16 +65,19 @@ const PrefetchCourses = () => {
   return null;
 };
 
-// Route helpers
-const DashboardRoute = ({ user }) => {
+// Route helpers - NOW CHECK isLoadingUser
+const DashboardRoute = ({ user, isLoadingUser }) => {
+  if (isLoadingUser) return <Spinner />; // Show spinner while loading
   const role = user?.role || 'student';
   return role === 'admin' ? <AdminDashboard /> : <StudentDashboard />;
 };
-const CoursesRoute = ({ user }) => {
+const CoursesRoute = ({ user, isLoadingUser }) => {
+  if (isLoadingUser) return <Spinner />; // Show spinner while loading
   const role = user?.role || 'student';
   return role === 'admin' ? <AdminCourses /> : <StudentCourses user={user} />;
 };
-const VideosRoute = ({ courseId, user }) => {
+const VideosRoute = ({ courseId, user, isLoadingUser }) => {
+  if (isLoadingUser) return <Spinner />; // Show spinner while loading
   const role = user?.role || 'student';
   return role === 'admin' ? <AdminVideos courseId={courseId} /> : <StudentVideos />;
 };
@@ -125,6 +129,7 @@ const App = () => {
               <PrefetchCourses />
               <div className="content">
                 <Routes>
+                  {/* Public Routes */}
                   <Route path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
@@ -137,11 +142,14 @@ const App = () => {
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/careers" element={<Careers />} />
+
+                  {/* Authenticated Routes (using ProtectedRoute) */}
+                  {/* Pass isLoadingUser to context wrappers */}
                   <Route path="/profile" element={<ProtectedRoute><ProfileWithUser /></ProtectedRoute>} />
                   <Route path="/my-library" element={<ProtectedRoute><DashboardWithUser /></ProtectedRoute>} />
                   <Route path="/courses" element={<ProtectedRoute><CoursesWithUser /></ProtectedRoute>} />
                   <Route path="/course/:courseId/videos" element={<ProtectedRoute><VideosWithUser courseId={window.location.pathname.split('/')[2]} /></ProtectedRoute>} />
-                  <Route path="/play/:videoId" element={<ProtectedRoute><PlayVideo /></ProtectedRoute>} /> {/* ✅ NEW PLAY ROUTE */}
+                  <Route path="/play/:videoId" element={<ProtectedRoute><PlayVideo /></ProtectedRoute>} />
                   <Route path="/admin-user-access" element={<ProtectedRoute><AdminUserAccess /></ProtectedRoute>} />
                 </Routes>
               </div>
@@ -156,22 +164,22 @@ const App = () => {
   );
 };
 
-// Context wrappers
+// Context wrappers - NOW PASS isLoadingUser to their children
 const ProfileWithUser = () => {
-  const { user } = useUser();
-  return <Profile user={user} />;
+  const { user, isLoadingUser } = useUser();
+  return <Profile user={user} isLoadingUser={isLoadingUser} />; // Pass isLoadingUser
 };
 const DashboardWithUser = () => {
-  const { user } = useUser();
-  return <DashboardRoute user={user} />;
+  const { user, isLoadingUser } = useUser();
+  return <DashboardRoute user={user} isLoadingUser={isLoadingUser} />; // Pass isLoadingUser
 };
 const CoursesWithUser = () => {
-  const { user } = useUser();
-  return <CoursesRoute user={user} />;
+  const { user, isLoadingUser } = useUser();
+  return <CoursesRoute user={user} isLoadingUser={isLoadingUser} />; // Pass isLoadingUser
 };
 const VideosWithUser = ({ courseId }) => {
-  const { user } = useUser();
-  return <VideosRoute courseId={courseId} user={user} />;
+  const { user, isLoadingUser } = useUser();
+  return <VideosRoute courseId={courseId} user={user} isLoadingUser={isLoadingUser} />; // Pass isLoadingUser
 };
 
 export default App;

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../utils/api';
-import { useUser } from '../context/UserContext';
+// import { useUser } from '../context/UserContext'; // No longer import useUser from UserContext directly
+import { useUser } from '../context/useUser'; // Import useUser from its new separate file
 import useTitle from '../components/useTitle';
 
 const Login = () => {
@@ -11,12 +12,14 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { setUser, loadUser } = useUser(); // Get loadUser function from context
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/');
+      // If a token exists, and the user data is already being loaded/set by context,
+      // just navigate. The context will handle setting 'user'.
+      navigate('/my-library'); 
     }
   }, [navigate]);
 
@@ -27,17 +30,22 @@ const Login = () => {
       const { token } = response;
 
       if (token) {
-        localStorage.setItem('token', token);
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        localStorage.setItem('user', JSON.stringify(decodedToken));
-        setUser(decodedToken);
-        navigate('/my-library');
+        localStorage.setItem('token', token); // ONLY store the raw, signed token
+
+        // Explicitly trigger user data load in context after setting the token.
+        // This ensures the context state is updated immediately.
+        await loadUser(); 
+
+        navigate('/my-library'); 
       } else {
         setError('Failed to authenticate');
       }
     } catch (error) {
       setError('Invalid credentials or server error');
       console.error(error);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setUser(null); 
     }
   };
 

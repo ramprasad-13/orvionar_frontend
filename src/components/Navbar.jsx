@@ -1,18 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import navbarLogo from '../assets/logo2.webp';
 import { getCoursesByDomainWithoutAuth } from '../utils/api';
 import Spinner from '../components/Spinner';
+import { useUser } from '../context/useUser';
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [selectedDomain, setSelectedDomain] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const programsRef = useRef(null); // Ref for the programs dropdown
+  
+  const programsRef = useRef(null);
 
   const domains = [
     { display: 'CSE/IT', key: 'cse' },
@@ -31,12 +33,6 @@ const Navbar = () => {
     enabled: !!selectedDomain,
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, [location]);
-
-  // Effect to handle clicks outside the programs dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (programsRef.current && !programsRef.current.contains(event.target) && isProgramsOpen) {
@@ -61,11 +57,11 @@ const Navbar = () => {
   };
 
   const handleLoginLogout = () => {
-    if (isLoggedIn) {
+    if (user) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      setIsLoggedIn(false);
-      navigate('/');
+      setUser(null); 
+      navigate('/login'); 
     } else {
       navigate('/login');
     }
@@ -79,7 +75,6 @@ const Navbar = () => {
   };
 
   const handleCourseClick = () => {
-    // When a course is clicked, close all menus
     setIsMobileMenuOpen(false);
     setIsProgramsOpen(false);
     setSelectedDomain(null);
@@ -107,7 +102,7 @@ const Navbar = () => {
         >
           <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)} className={({ isActive }) => `hover:bg-orange-500 px-3 py-2 rounded ${isActive ? 'bg-orange-500' : ''}`}>Home</NavLink>
 
-          <div className="relative" ref={programsRef}> {/* Attach ref here */}
+          <div className="relative" ref={programsRef}>
             <button onClick={handleProgramsToggle} className="hover:bg-orange-500 px-3 py-2 rounded flex items-center">
               Programs <span className="ml-1">▼</span>
             </button>
@@ -123,7 +118,7 @@ const Navbar = () => {
                         {domain.display} {selectedDomain === domain.key ? <span className="ml-1">▼</span> : <span className="ml-1">▶</span>}
                       </button>
                       {selectedDomain === domain.key && (
-                        <ul className="bg-gray-100 max-h-60 overflow-y-auto px-4 py-2 border-t border-gray-200"> {/* Added bg-gray-100 for differentiation */}
+                        <ul className="bg-gray-100 max-h-60 overflow-y-auto px-4 py-2 border-t border-gray-200">
                           {loadingCourses ? (
                             <li className="italic text-sm text-gray-600"><Spinner /></li>
                           ) : courses.length > 0 ? (
@@ -131,7 +126,7 @@ const Navbar = () => {
                               <li key={course._id}>
                                 <NavLink
                                   to={`/course/${course._id}`}
-                                  className="block px-2 py-1 hover:text-orange-600 bg-gray-200 my-1 rounded" // Added different background color and padding
+                                  className="block px-2 py-1 hover:text-orange-600 bg-gray-200 my-1 rounded"
                                   onClick={handleCourseClick}
                                 >
                                   {course.name}
@@ -156,13 +151,13 @@ const Navbar = () => {
               to={`/${label.toLowerCase().replace(' ', '-')}`}
               className={({ isActive }) => `hover:bg-orange-500 px-3 py-2 rounded ${isActive ? 'bg-orange-500' : ''}`}
               onClick={() => setIsMobileMenuOpen(false)}
-            >
+            > {/* Added closing '>' here */}
               {label}
             </NavLink>
           ))}
 
           <button onClick={handleLoginLogout} className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-full md:w-auto">
-            {isLoggedIn ? 'Logout' : 'Login / Signup'}
+            {user ? 'Logout' : 'Login / Signup'}
           </button>
         </div>
       </div>

@@ -1,24 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import { getUserProfile } from '../utils/api';
 import useTitle from '../components/useTitle';
+import Spinner from '../components/Spinner'; // Make sure Spinner is imported
+import { useUser } from '../context/useUser'; // Import useUser hook
 
-const Profile = ({ user }) => {
+const Profile = () => { // Removed 'user' prop, get it from context
   useTitle("Profile");
-  const id = user.userId;
+  const { user, isLoadingUser } = useUser(); // Get user and loading state from context
   const [userInfo, setUserInfo] = useState({});
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await getUserProfile(id);
-        setUserInfo(userData || {});
-      } catch (error) {
-        console.log('Error fetching User Info', error);
-        setUserInfo({});
-      }
-    };
-    fetchUser();
-  }, [id]);
+    // Only fetch if user is available and not currently loading from context
+    if (user && user.userId && !isLoadingUser) {
+      const fetchUser = async () => {
+        try {
+          // No need for a separate loading state here if UserContext handles it,
+          // but if this component fetches additional data, keep its own loading.
+          // For now, rely on UserContext's loading for initial user data.
+          const userData = await getUserProfile(); // Call without ID, backend infers from token
+          setUserInfo(userData || {});
+          setError(null);
+        } catch (err) {
+          console.error('Error fetching User Info:', err);
+          setError('Failed to load profile details. Please try again.');
+          setUserInfo({});
+        }
+      };
+      fetchUser();
+    } else if (!user && !isLoadingUser) {
+        // If user is null and not loading, it means not authenticated or session expired
+        setError("User not authenticated or session expired. Please log in.");
+    }
+  }, [user, isLoadingUser]); // Depend on user and isLoadingUser
+
+  // Display loading spinner while user data is being fetched by UserContext
+  if (isLoadingUser) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <Spinner />
+      </div>
+    );
+  }
+
+  // If user is null after loading, it means they are not authenticated
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-white shadow-md rounded-lg p-6 text-center text-red-700">
+          <p>{error || "You are not logged in. Please log in to view your profile."}</p>
+          {/* Optionally add a link to login */}
+          {/* <a href="/login" className="text-orange-600 hover:underline mt-4 block">Go to Login</a> */}
+        </div>
+      </div>
+    );
+  }
 
   const getStatusColor = (status) => {
     switch ((status || '').toLowerCase()) {
@@ -44,7 +80,8 @@ const Profile = ({ user }) => {
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-600 font-medium">User ID:</span>
-                <span className="text-gray-800">{id}</span>
+                {/* Use userInfo.userId which is from the backend fetch */}
+                <span className="text-gray-800">{userInfo.userId || 'N/A'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600 font-medium">Name:</span>
@@ -64,7 +101,8 @@ const Profile = ({ user }) => {
           <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Academic Details</h2>
             <div className="space-y-3">
-              {user.role === 'student' && (
+              {/* Use userInfo.role from the backend-fetched data for conditional rendering */}
+              {userInfo.role === 'student' && (
                 <>
                   <div className="flex justify-between">
                     <span className="text-gray-600 font-medium">College:</span>
