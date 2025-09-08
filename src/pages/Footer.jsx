@@ -27,7 +27,7 @@ const Footer = () => {
             Hustlehub Tech Park, Somasundarapalya Main Rd,<br />
             Adjacent 27th Main Rd, ITI Layout Sector 2, <br/ >
             Haralukunte Village, HSR Layout, <br/ >
-            Bengaluru - 560068
+            Bengaluru - 560102
           </p>
         </div>
 
