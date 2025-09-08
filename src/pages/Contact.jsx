@@ -20,7 +20,8 @@ const Contact = () => {
       <section className="py-8 px-6 text-center bg-white">
         <div className="max-w-4xl mx-auto text-gray-800 text-lg leading-relaxed">
           <p>
-            <strong className="text-black">Address:</strong> Orvionar Tech, BTM Layout, near Lake View Condiments, Bengaluru - 560068<br />
+            <strong className="text-black">Address:</strong> Orvionar Tech, H206, 36/5, Hustlehub Tech Park, Somasundarapalya Main Rd, Adjacent 27th Main Rd,
+            ITI Layout, Sector 2, HaralukunteVillage, HSR Layout, Bengaluru - 560102<br />
             <strong className="text-black">Email:</strong> info@orvionar.in<br />
             <strong className="text-black">Phone:</strong> +91 7483905485
           </p>
