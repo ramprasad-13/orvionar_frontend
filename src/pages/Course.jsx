@@ -161,7 +161,7 @@ const Course = () => {
                   <h4 className="font-semibold">{proj.name}</h4>
                   <p className="text-sm text-gray-600">{proj.description}</p>
                 </div>
-              )) : <p>No projects available</p>}
+              )) : <p>A project will be assigned by our industry experts based on the latest market trends in {course.name}.</p>}
             </div>
           )}
         </div>
